@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="resources/common/css/common.css"/>
+    <link rel="stylesheet" href="resources/common/css/index.css"/>
+    <link rel="stylesheet" href="resources/common/css/jquery.mCustomScrollbar.css"/>
+    <link rel="stylesheet" href="resources/common/css/jquery.layer.css">
+    <link type="text/css" rel="stylesheet" href="resources/common/js/jedate/skin/jedate.css">
+    <script type="text/javascript" src="resources/common/js/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="resources/common/js/jedate/jquery.jedate.js"></script>
+    <script src="resources/common/js/jquery/jquery.mousewheel.min.js"></script>
+    <script src="resources/common/js/jquery/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="resources/common/js/initialize.js"></script>
+    <script type="text/javascript" src="resources/common/js/common.js"></script>
+    <script type="text/javascript" src="resources/common/js/dataLink.js"></script>
+    <script type="text/javascript" src="resources/common/js/validate/validate.js"></script>
+    <script type="text/javascript" src="resources/common/js/pagination/pagination.js"></script>
+    <script type="text/javascript" src="resources/common/js/utils/utils.js"></script>
+    <script src="resources/common/js/layer/jquery.layer.js"></script>
+    <script src="resources/common/js/validate/checkInputJs.js"></script>
+    <script type="text/javascript" src="resources/template/ruleManagement/js/ruleManagement.js"></script>
+    <script type="text/javascript" src="resources/template/ruleManagement/js/ruleManagementTemplate.js"></script>
+
+    <style>
+        /*时间选择框*/
+        #search_check_in_time,#search_check_out_time{width:100px; height:24px; border:1px #A5D2EC solid;}
+        .wicon{background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAQCAYAAADj5tSrAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNi8xNS8xNGnF/oAAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAAoElEQVQ4jWPceOnNfwYqAz9dYRQ+E7UtwAaGjyUsDAyYYUgJ2HT5LXZLcEmSCnA6duOlN///////H0bDALl8dPH/////Z8FuNW6Qtvw2nL3lyjsGBgYGhlmRqnj1kGwJuqHIlhJlCXq8EOITEsdqCXLEbbr8FisfFkTo+vBZRFZwERNEFFkCiw90nxJtCalxQmzegltCzVyP1RJq5HZ8AABuNZr0628DMwAAAABJRU5ErkJggg=="); background-repeat:no-repeat; background-position:right center;}
+    </style>
+
+</head>
+<body>
+<div id="operation" class="removeFloatEffect">
+    <div class="operation_left">
+        <a id="add" class="commonButton"><span>新增</span></a>
+        <a id="edit" class="commonButton"><span>编辑</span></a>
+        <a id="del" class="commonButton"><span>删除</span></a>
+        <a id="refresh" class="commonButton"><span>刷新</span></a>
+    </div>
+    <div class="search rt">
+        <span>标题：</span><input type="text" id="search_title" data-type="title" query-value=""  placeholder="请输入标题" style="width: 105px;"/>
+        <span>部门：</span><input type="text" id="search_dept" data-type="dept" query-value="" placeholder="请输入部门" style="width: 105px;"/>
+        <span>上班时间：</span><input class="wicon" id="search_check_in_time" data-type="check_in_time" query-value="" type="text" placeholder="请选择上班时间" value="" readonly  />
+        <span>下班时间：</span><input class="wicon" id="search_check_out_time" data-type="check_out_time" query-value="" type="text" placeholder="请选择下班时间" value="" readonly />
+        <a id="search" class="commonButton"><span>查询</span></a>
+        <a id="export" class="commonButton"><span>导出</span></a>
+    </div>
+</div>
+<div id="ecportHiddenDiv" hidden="hidden"></div>
+<!-- 页面主体 -->
+<div class="content_main">
+    <!-- 表头 -->
+    <table cellpadding="0" cellspacing="1">
+        <!-- 列数及宽度设置 -->
+        <colgroup>
+            <col width="4%">
+            <col width="16%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+        </colgroup>
+        <!-- 列名设置 -->
+        <thead>
+        <tr>
+            <th width="4%"><input type="checkbox" class="checkAll"></th>
+            <th width="16%">编号</th>
+            <th width="20%">标题</th>
+            <th width="20%">部门</th>
+            <th width="20%">上班时间</th>
+            <th width="20%">下班时间</th>
+        </tr>
+        </thead>
+    </table>
+    <!-- 表体 -->
+    <div class="table_body tableContent">
+        <!-- 列数及宽度设置 -->
+        <table id="EmployeeDailyRuleTable" cellpadding="0" cellspacing="1">
+            <colgroup>
+                <col width="4%">
+                <col width="16%">
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
+                <col width="20%">
+            </colgroup>
+            <!-- 数据 -->
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 页码 -->
+    <div class="navigation">
+        <div class="navigation_left">
+            共<label id="totalNum">0</label>条数据, 第<span id="currentPage">1</span>页/共[<label id="totalPage">0</label>]页<input id="pageSize" style="display:none"/>
+        </div>
+        <div class="navigation_right">
+            <input type="button" value="首页" id="first" />
+            <input type="button" value="上一页" id="previous" />
+            <input type="button" value="下一页" id="next" />
+            <input type="button" value="尾页" id="last" />
+            转到
+            <input type="text" id="jumpNo" class="turn">
+            页
+            <input type="button" id="jumpPageButton" value="跳转" />
+        </div>
+    </div>
+</div>
+
+
+<!-- 新增页面 -->
+<div id="addPage" class="hiddenClass">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 class="movePart">新增规则</h4>
+            <ul id="addArea">
+                <li>
+                    <span> <b>*</b>编号：</span><input id="id_add"  placeholder="请输入编号"  type="text" maxlength="10" datatype="Number" onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>标题：</span><input id="title_add"  placeholder="请输入标题"  type="text" maxlength="10" datatype="Chinese" onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>部门：</span><input id="dept_add"  placeholder="请输入部门"  type="text" maxlength="20"  onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>上班时间：</span><input class="wicon" id="check_in_time_add"  type="text" placeholder="请选择上班时间"  readonly dataType="Require"  />
+                </li>
+                <li>
+                    <span> <b>*</b>下班时间：</span><input class="wicon" id="check_out_time_add"  type="text" placeholder="请选择下班时间"  readonly dataType="Require"  />
+                </li>
+            </ul>
+            <p class="serviceButton"><input type="button" id="model_add" value="添加"><input type="button" class="cancel" value="取消"></p>
+        </div>
+    </div>
+</div>
+<!-- 修改页面 -->
+<div id="editPage" class="hiddenClass">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 class="movePart">修改菜单</h4>
+            <ul id="editArea">
+                <li class="hiddenClass">
+                    <span>主键：</span><input id="configId_modify" type="text">
+                </li>
+                <li>
+                    <span> <b>*</b>编号：</span><input id="id_modify"   disabled type="text"  onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>标题：</span><input id="title_modify"  type="text"   onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>上班时间：</span><input class="wicon" id="check_in_time_modify"  type="text" placeholder="请选择上班时间"  readonly onclick="$.jeDate('#check_in_time_modify',{trigger:false,isTime:true,format:'hh:mm:ss'})" dataType="Require"  />
+                </li>
+                <li>
+                    <span> <b>*</b>下班时间：</span><input class="wicon" id="check_out_time_modify"  type="text" placeholder="请选择下班时间"  readonly onclick="$.jeDate('#check_out_time_modify',{trigger:false,isTime:true,format:'hh:mm:ss'})" dataType="Require"  />
+                </li>
+                <li>
+                    <span> <b>*</b>部门：</span><input id="dept_modify"    type="text" maxlength="10"  onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+            </ul>
+            <p class="serviceButton"><input type="button" id="model_modify" value="修改"><input type="button" class="cancel" value="取消"></p>
+        </div>
+    </div>
+</div>
+
+<!-- 删除页面 -->
+<!--删除和重置用的id-->
+<div class="hiddenClass">
+    <input type="text" id="deleteId">
+</div>
+<!-- 执行按钮 -->
+<div id="executePage" class="hiddenClass">
+    <input id="refreshAll" />
+</div>
+<!-- 提示信息 -->
+<div class="promptInfor" style="display: none"></div>
+</body>
+</html>

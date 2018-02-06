@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="resources/common/css/common.css"/>
+    <link rel="stylesheet" href="resources/common/css/index.css"/>
+    <link rel="stylesheet" href="resources/common/css/jquery.mCustomScrollbar.css"/>
+    <link rel="stylesheet" href="resources/common/css/jquery.layer.css">
+    <script type="text/javascript" src="resources/common/js/jquery/jquery-1.8.3.min.js"></script>
+    <script src="resources/common/js/jquery/jquery.mousewheel.min.js"></script>
+    <script src="resources/common/js/jquery/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="resources/common/js/initialize.js"></script>
+    <script type="text/javascript" src="resources/common/js/common.js"></script>
+    <script type="text/javascript" src="resources/common/js/dataLink.js"></script>
+    <script type="text/javascript" src="resources/common/js/pagination/pagination.js"></script>
+    <script type="text/javascript" src="resources/common/js/utils/utils.js"></script>
+    <script src="resources/common/js/layer/jquery.layer.js"></script>
+    <script src="resources/common/js/validate/checkInputJs.js"></script>
+    <script type="text/javascript" src="resources/template/employee/feature/js/employee.js"></script>
+    <script type="text/javascript" src="resources/template/employee/feature/js/employeeTemplate.js"></script>
+    <script type="text/javascript" src="dwr/engine.js"></script>
+    <script type="text/javascript" src="dwr/util.js"></script>
+    <script type="text/javascript" src="dwr/interface/messagePush.js"></script>
+</head>
+<body>
+<div id="operation" class="removeFloatEffect">
+    <div class="operation_left">
+        <a id="add" class="commonButton"><span>新增</span></a>
+        <a id="edit" class="commonButton"><span>编辑</span></a>
+        <a id="del" class="commonButton"><span>删除</span></a>
+        <a id="refresh" class="commonButton"><span>刷新</span></a>
+    </div>
+    <div class="search rt">
+        <span>姓名：</span><input type="text" id="search_name" query-value="" maxlength="40" placeholder="请输入姓名" style="width: 105px;"/>
+        <span>证件号：</span><input type="text" id="search_ctfNo" query-value="" maxlength="40"placeholder="请输入证件号" style="width: 105px;"/>
+        <span>工号：</span><input type="text" id="search_uid" query-value="" maxlength="40"placeholder="请输入工号" style="width: 105px;"/>
+        <span>部门：</span><input type="text" id="search_dept" query-value=""  placeholder="请输入部门"style="width: 85px;"></input>
+        <a id="search" class="commonButton"><span>查询</span></a>
+        <a id="reset" class="commonButton"><span>重置</span></a>
+    </div>
+</div>
+<!-- 页面主体 -->
+<div class="content_main">
+    <!-- 表头 -->
+    <table cellpadding="0" cellspacing="1">
+        <!-- 列数及宽度设置 -->
+        <colgroup>
+            <col width="4%">
+            <col width="8%">
+            <col width="8%">
+            <col width="6%">
+            <col width="15%">
+            <col width="10%">
+            <col width="10%">
+            <col width="14%">
+            <col width="15%">
+            <col width="10%">
+        </colgroup>
+        <!-- 列名设置 -->
+        <thead>
+        <tr>
+            <th width="4%"><input type="checkbox" class="checkAll"></th>
+            <th width="8%">工号</th>
+            <th width="8%">姓名</th>
+            <th width="6%">性别</th>
+            <th width="15%">登记时间</th>
+            <th width="10%">手机号</th>
+            <th width="10%">部门</th>
+            <th width="14%">证件号</th>
+            <th width="15%">邮箱</th>
+            <th width="10%">操作</th>
+        </tr>
+        </thead>
+    </table>
+    <!-- 表体 -->
+    <div class="table_body tableContent">
+        <!-- 列数及宽度设置 -->
+        <table id="employeeTable" cellpadding="0" cellspacing="1">
+            <colgroup>
+                <col width="4%">
+                <col width="8%">
+                <col width="8%">
+                <col width="6%">
+                <col width="15%">
+                <col width="10%">
+                <col width="10%">
+                <col width="14%">
+                <col width="15%">
+                <col width="10%">
+            </colgroup>
+            <!-- 数据 -->
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 页码 -->
+    <div class="navigation">
+        <div class="navigation_left">
+            共<label id="totalNum">0</label>条数据, 第<span id="currentPage">1</span>页/共[<label id="totalPage">0</label>]页<input id="pageSize" style="display:none">
+        </div>
+        <div class="navigation_right">
+            <input type="button" value="首页" id="first" />
+            <input type="button" value="上一页" id="previous" />
+            <input type="button" value="下一页" id="next" />
+            <input type="button" value="尾页" id="last" />
+            转到
+            <input type="text" id="jumpNo" class="turn">
+            页
+            <input type="button" id="jumpPageButton" value="跳转" />
+        </div>
+    </div>
+</div>
+
+<!--详情-->
+<div id="employeeResultQueryPage" class="dragDialog">
+    <div class="modal-dialog featureOption">
+        <div class="modal-content">
+            <h4 class="movePart">认证详情<img src="resources/common/image/close.png" width="15px"height="15px"class="rt cancel"></h4>
+            <div id="certificateInfor">
+                <div>
+                    <p>基本信息</p>
+                    <div id="basicInformationArea">
+                        <span style="display: none">主键：</span><label style="display: none" id="employeeResultQuery_id"></label>
+                        <span>工号：</span><label id="employee_uid"></label><br/>
+                        <span>部门：</span><label id="employee_dept" ></label><br/>
+                        <span>姓名：</span><label id="employee_name"></label><br/>
+                        <span>性别：</span><label id="employee_sex" data-dictionary="1" ></label><br/>
+                        <span>登记时间：</span><label id="employee_createTime" date-format="datetime"></label><br/>
+                        <span>手机号：</span><label id="employee_telphone" ></label><br/>
+                        <span>证件号：</span><label id="employee_ctfNo"></label><br/>
+                        <span>邮箱：</span><label id="employee_email"></label><br/>
+                    </div>
+                </div>
+                <div id="imageArea">
+                    <p>本地图片</p>
+                    <div id="certificatePhotoArea" class="removeFloatEffect">
+                        <div class="lf">
+                            <img id="face">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 新增页面 -->
+<div id="addPage" class="hiddenClass">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 class="movePart">新增员工</h4>
+            <ul id="addArea">
+                <li>
+                    <span> <b>*</b>工号：</span><input id="uid_add"  placeholder="请输入工号" msg="工号未输入或输入格式不正确" type="text" maxlength="10" datatype="Number" onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>部门：</span><input id="dept_add"  placeholder="请输入部门名称" msg="部门名称未输入或输入格式不正确" type="text" maxlength="10" datatype="Chinese" onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>姓名：</span><input id="name_add"  placeholder="请输入姓名" dataType="Require" type="text" maxlength="20"  onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>性别：</span><select id="sex_add" type="text" dataType="Require" placeholder="请输入性别">
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                    </select>
+                    <!--<input id="sex_add"  msg="请输入性别" type="text" maxlength="10"  onblur="$(this).val($(this).val().replace(/\s/g,''))" />-->
+                </li>
+<!--                <li>
+                    <span> <b>*</b>登记时间：</span><input id="createTime_add"  msg="请输入登记时间" type="text" maxlength="10"  onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>-->
+                <li>
+                    <span> <b>*</b>手机号：</span><input id="telphone_add" placeholder="请输入手机号" msg="手机号未输入或输入格式不正确" type="text" maxlength="11"  datatype="Phone" onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>证件号：</span><input id="ctfNo_add" placeholder="请输入证件号" msg="证件号未输入或输入格式不正确" type="text" maxlength="18"  datatype="IdCard" onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span><b>*</b>邮箱：</span><input id="email_add" type="text" placeholder="请输入邮箱" msg="邮箱未输入或输入格式不正确" maxlength="40"  datatype="Email" onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                </li>
+                <li>
+                    <a href=" " title="本地上传" >
+                    <input id="photoUpload"  type="file" accept="image/png,image/jpeg,image/gif,image/jpg" >
+                    </a>
+                </li>
+                <li>
+                    <input id="image_add"  type="text" class="hiddenClass">
+                </li>
+            </ul>
+            <p class="serviceButton"><input type="button" id="model_add" value="添加"><input type="button" class="cancel" value="取消"></p>
+        </div>
+    </div>
+</div>
+<!-- 修改页面 -->
+<div id="editPage" class="hiddenClass">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 class="movePart">修改菜单</h4>
+            <ul id="editArea">
+                <li class="hiddenClass">
+                    <span>主键：</span><input id="configId_modify" type="text">
+                </li>
+                <li>
+                    <span> <b>*</b>工号：</span><input id="uid_modify"   disabled type="text"  onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>部门：</span><input id="dept_modify"   msg="部门名称未输入或输入格式不正确" type="text" maxlength="10" datatype="Chinese" onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>姓名：</span><input id="name_modify"  type="text"   onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>性别：</span><select id="sex_modify"  dataType="Require"  ></select>
+                </li>
+                <li>
+                    <span> <b>*</b>手机号：</span><input id="telphone_modify" msg="手机号未输入或输入格式不正确" type="text" maxlength="11"  datatype="Phone" onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span> <b>*</b>证件号：</span><input id="ctfNo_modify"  type="text" disabled onblur="$(this).val($(this).val().replace(/\s/g,''))" />
+                </li>
+                <li>
+                    <span><b>*</b>邮箱：</span><input id="email_modify" type="text"  msg="邮箱未输入或输入格式不正确" maxlength="40"  datatype="Email" onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                </li>
+               <!-- <li>
+                    <a href=" " title="本地上传" >
+                        <input id="photoUpload1"  type="file" accept="image/png,image/jpeg,image/gif,image/jpg" >
+                    </a>
+                </li>
+                <li>
+                    <input id="image_modify"  type="text" class="hiddenClass">
+                </li>-->
+            </ul>
+            <p class="serviceButton"><input type="button" id="model_modify" value="修改"><input type="button" class="cancel" value="取消"></p>
+        </div>
+    </div>
+</div>
+
+<!-- 删除页面 -->
+<!--删除和重置用的id-->
+<div class="hiddenClass">
+    <input type="text" id="deleteId">
+</div>
+<!-- 执行按钮 -->
+<div id="executePage" class="hiddenClass">
+    <input id="refreshAll" />
+</div>
+<!-- 提示信息 -->
+<div class="promptInfor" style="display: none"></div>
+</body>
+</html>

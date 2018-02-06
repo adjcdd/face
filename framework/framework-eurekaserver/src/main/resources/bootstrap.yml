@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: eurekaserver
+  http:
+    encoding: { charset: UTF-8, enable: true, force: true }
+info:
+  component: eurekaserver

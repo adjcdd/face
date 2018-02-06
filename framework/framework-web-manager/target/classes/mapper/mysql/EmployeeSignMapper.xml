@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.framework.manager.mapper.EmployeeSignMapper">
+
+    <resultMap id="employeeSignMap" type="employeeSignPojo">
+        <id property="id"                    column="id"/>
+        <result property="clock_in_time"   column="clock_in_time"/>
+        <result property="device_no"  column="device_no"/>
+        <result property="sign"              column="sign"/>
+        <result property="image"             column="image"/>
+    </resultMap>
+
+
+    <select id="getSignFailList" resultMap="employeeSignMap">
+        SELECT
+          es.uid,es.clock_in_time,es.device_no,es.sign,es.image,e.name
+        FROM
+              grg_employee_sign es
+        LEFT JOIN grg_employee e
+        ON es.uid = e.uid
+        WHERE
+        es.sign=0 AND
+        TO_DAYS(es.clock_in_time)=TO_DAYS(now())
+        ORDER  BY
+        es.clock_in_time desc
+        limit 6
+    </select>
+    <select id="getSignList" resultMap="employeeSignMap">
+        SELECT
+        es.uid,es.clock_in_time,es.device_no,es.sign,es.image,e.name
+        FROM
+        grg_employee_sign es
+        LEFT JOIN grg_employee e
+        ON es.uid = e.uid
+        WHERE
+        es.sign=1 AND
+         TO_DAYS(es.clock_in_time)=TO_DAYS(now())
+        ORDER  BY
+        es.clock_in_time desc
+        limit 6
+    </select>
+
+    <select id="getSignClockLastime" resultMap="employeeSignMap">
+      SELECT ed.clock_in_time,ed.uid
+       FROM (
+        SELECT max(clock_in_time) as clock_in_time,uid
+        FROM grg_employee_sign
+        GROUP BY uid
+        ORDER BY clock_in_time DESC) ed
+        WHERE TO_DAYS(clock_in_time)=TO_DAYS(now()) AND ed.uid>=0
+    </select>
+    <insert id = "addEmployeeSign" parameterType ="EmployeeSignPojo">
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    INSERT INTO grg_employee_sign (
+        uid,
+        clock_in_time,
+        device_no,
+        sign,
+        image
+    )
+    VALUES
+    (
+        #{uid},
+        #{clock_in_time},
+        #{device_no},
+        #{sign},
+        #{image}
+    )
+    </insert>
+
+    <update id="updateEmployeeSign" parameterType="EmployeeSignPojo">
+        UPDATE  grg_employee_sign
+        <trim prefix="set" suffixOverrides=",">
+            <if test="clock_in_time!=null">
+                clock_in_time = #{clock_in_time},
+            </if>
+            <if test="device_no!=null">
+                device_no = #{device_no},
+            </if>
+            <if test="sign!=null">
+                sign = #{sign},
+            </if>
+            <if test="image!=null">
+                image= #{image}
+            </if>
+        </trim>
+        WHERE uid=#{uid}
+    </update>
+
+</mapper>

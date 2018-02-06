@@ -1,0 +1,3 @@
+com\grgbanking\framework\dashboard\config\SecurityConfig.class
+com\grgbanking\framework\dashboard\BiometricsDashboardApplication.class
+com\grgbanking\framework\dashboard\config\WebConfig.class

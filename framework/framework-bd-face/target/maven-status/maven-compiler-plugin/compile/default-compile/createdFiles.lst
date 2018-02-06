@@ -1,0 +1,8 @@
+com\grgbanking\framework\bd\face\config\CachePropertiesConfig.class
+com\grgbanking\framework\bd\face\BiometricsBdFaceApplication.class
+com\grgbanking\framework\bd\face\controller\TestController.class
+com\grgbanking\framework\bd\face\config\SwaggerConfig.class
+com\grgbanking\framework\bd\face\mapper\TestMapper.class
+com\grgbanking\framework\bd\face\service\TestService.class
+com\grgbanking\framework\bd\face\config\WebConfig.class
+com\grgbanking\framework\bd\face\config\SecurityConfig.class

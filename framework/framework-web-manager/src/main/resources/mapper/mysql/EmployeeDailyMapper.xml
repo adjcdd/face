@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.framework.manager.mapper.EmployeeDailyMapper">
+
+    <resultMap id="employeeDailyMap" type="employeeDailyPojo">
+        <id property="id"                    column="id"/>
+        <result property="name" column="name"/>
+        <result property="uid" column="uid"/>
+        <result property="check_in_time"   column="check_in_time"/>
+        <result property="check_out_time"  column="check_out_time"/>
+        <result property="flag"              column="flag"/>
+        <result property="dept"             column="dept"/>
+        <result property="later"             column="later"/>
+        <result property="early"             column="early"/>
+        <result property="later_time"             column="later_time"/>
+        <result property="early_time"             column="early_time"/>
+            <association property="employeeSignPojo" javaType="com.grgbanking.framework.domains.employeeSign.pojo.EmployeeSignPojo">
+                            <!-- id:关联查询用户的唯一标识
+                     column:指定唯一标识用户信息的列
+                     property:映射到user的那个属性
+                 -->
+                             <id column="id" property="id"/>
+                            <result column="uid" property="uid"/>
+                            <result column="image" property="image"/>
+                            <result column="name" property="name"/>
+            </association>
+    </resultMap>
+
+
+
+    <insert id = "addEmployeeDaily" parameterType ="employeeDailyPojo">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO grg_employee_daily (
+        id,
+        name,
+        uid,
+        check_in_time,
+        check_out_time,
+        flag,
+        dept,
+        later,
+        early,
+        later_time,
+        early_time
+        )
+        VALUES
+        (
+        #{id},
+        #{name},
+        #{uid},
+        #{check_in_time},
+        #{check_out_time},
+        #{flag},
+        #{dept},
+        #{later},
+        #{early},
+        #{later_time},
+        #{early_time}
+        )
+    </insert>
+    <select id="getEmployeeDailyList" resultMap="employeeDailyMap">
+      SELECT
+          id,name,uid,check_in_time,check_out_time,flag,dept,later,early,later_time,early_time
+        FROM  grg_employee_daily
+          WHERE uid=#{uid}  and TO_DAYS(check_in_time)=TO_DAYS(now())
+
+    </select>
+
+
+    <select id="getCurrentDailyList" resultMap="employeeDailyMap">
+        SELECT
+        ed.id,ed.name,ed.uid,ed.check_in_time,ed.check_out_time,ed.flag,ed.dept,ed.later,ed.early,ed.later_time,ed.early_time,
+        es.image
+        FROM  grg_employee_daily ed
+        LEFT JOIN grg_employee_sign es
+        ON  ed.id=es.id
+        WHERE  TO_DAYS(ed.check_in_time)=TO_DAYS(now())
+        ORDER  BY ed.check_in_time DESC
+        limit 6
+    </select>
+
+    <select id="getEmployeeDaily" parameterType="employeeDailyPojo" resultMap="employeeDailyMap">
+        SELECT
+          id,name,uid,check_in_time,check_out_time,flag,dept,later,early,later_time,early_time
+        FROM  grg_employee_daily
+          WHERE uid=#{uid} and TO_DAYS(check_in_time)=TO_DAYS(now())
+    </select>
+    <select id="getEmployeeDailyCurrentDayList"  resultMap="employeeDailyMap">
+        SELECT
+        id,name,uid,check_in_time,check_out_time,flag,dept,later,early,later_time,early_time
+        FROM  grg_employee_daily
+        WHERE  TO_DAYS(check_in_time)=TO_DAYS(now())
+    </select>
+    <update id="editEmployeeDaily" parameterType="employeeDailyPojo" >
+      UPDATE grg_employee_daily
+        <trim prefix="set" suffixOverrides=",">
+            <if test="check_out_time!=null">
+                check_out_time = #{check_out_time},
+            </if>
+            <if test="flag!=null">
+                flag = #{flag},
+            </if>
+            <if test="early!=null">
+                early = #{early},
+            </if>
+            <if test="early_time!=null">
+                early_time = #{early_time},
+            </if>
+        </trim>
+        WHERE uid=#{uid} and TO_DAYS(check_in_time)=TO_DAYS(now())
+    </update>
+</mapper>

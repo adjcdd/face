@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+
+    <script type="text/javascript" src="js/lib/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/lib/jsRender/jsrender.min.js"></script>
+    <script type="text/javascript" src="js/lib/common.js"></script>
+    <script type="text/javascript" src="js/project/sample/sample2.js"></script>
+
+    <script id="showValueRender" type="text/x-jsrender">
+        <tr>
+            <td>{{:id}}</td>
+            <td>{{:name}}</td>
+            <td>{{:age}}</td>
+        </tr>
+    </script>
+
+</head>
+<body>
+    <h1>Sample2</h1>
+
+    <input type="button" value="加载值" onclick="sample2Obj.loadVal()"/>
+
+    <table id="valTab">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>姓名</td>
+                <td>年龄</td>
+            </tr>
+        </thead>
+    </table>
+
+</body>
+</html>

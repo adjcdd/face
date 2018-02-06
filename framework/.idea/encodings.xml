@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-bd-face" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-dashboard" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-db" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-domains" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-eurekaserver" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-metrics-admin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-rest" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-time" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-turbine" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-util" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-web-manager" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/framework-webservice" charset="UTF-8" />
+  </component>
+</project>

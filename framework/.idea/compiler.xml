@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="demo" />
+        <module name="framework-bd-face" />
+        <module name="framework-dashboard" />
+        <module name="framework-db" />
+        <module name="framework-domains" />
+        <module name="framework-eurekaserver" />
+        <module name="framework-metrics-admin" />
+        <module name="framework-rest" />
+        <module name="framework-time" />
+        <module name="framework-turbine" />
+        <module name="framework-util" />
+        <module name="framework-web-manager" />
+        <module name="framework-webservice" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demo" target="1.8" />
+      <module name="framework-all" target="1.8" />
+      <module name="framework-bd-face" target="1.8" />
+      <module name="framework-dashboard" target="1.8" />
+      <module name="framework-db" target="1.6" />
+      <module name="framework-domains" target="1.5" />
+      <module name="framework-eurekaserver" target="1.8" />
+      <module name="framework-metrics-admin" target="1.5" />
+      <module name="framework-rest" target="1.8" />
+      <module name="framework-time" target="1.8" />
+      <module name="framework-turbine" target="1.8" />
+      <module name="framework-util" target="1.5" />
+      <module name="framework-web-manager" target="1.8" />
+      <module name="framework-webservice" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

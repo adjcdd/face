@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="defaultExecutorType" value="REUSE"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="Test"                                     type="com.grgbanking.framework.domains.Test"/>
+        <typeAlias alias="UserPojo"                                 type="com.grgbanking.framework.domains.manager.user.pojo.UserPojo"/>
+        <typeAlias alias="DataDictionaryPojo"              type="com.grgbanking.framework.domains.manager.data_dictionary.pojo.DataDictionaryPojo"/>
+        <typeAlias alias="DataDictionaryListJson"              type="com.grgbanking.framework.domains.manager.data_dictionary.json.DataDictionaryListJson"/>
+        <typeAlias alias="AuthorityPojo"              type="com.grgbanking.framework.domains.manager.authority.pojo.AuthorityPojo"/>
+        <typeAlias alias="RolePojo"              type="com.grgbanking.framework.domains.manager.role.pojo.RolePojo"/>
+        <typeAlias alias="EmployeePojo"              type="com.grgbanking.framework.domains.employee.pojo.EmployeePojo"/>
+        <typeAlias alias="EmployeeSignPojo"              type="com.grgbanking.framework.domains.employeeSign.pojo.EmployeeSignPojo"/>
+        <typeAlias alias="EmployeeDailyPojo"              type="com.grgbanking.framework.domains.employeeDaily.pojo.EmployeeDailyPojo"/>
+        <typeAlias alias="employeeDailyRulePojo"              type="com.grgbanking.framework.domains.employeeDailyRule.pojo.EmployeeDailyRulePojo"/>
+        <typeAlias alias="monitoringEmployeePojo"              type="com.grgbanking.framework.domains.report.employee.monitoringEmployee.pojo.MonitoringEmployeePojo"/>
+        <typeAlias alias="DataDictionaryPojo"              type="com.grgbanking.framework.domains.manager.data_dictionary.pojo.DataDictionaryPojo"/>
+        <typeAlias alias="DataDictionaryListJson"              type="com.grgbanking.framework.domains.manager.data_dictionary.json.DataDictionaryListJson"/>
+    </typeAliases>
+
+</configuration>

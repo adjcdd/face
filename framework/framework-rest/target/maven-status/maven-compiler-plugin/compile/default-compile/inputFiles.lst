@@ -1,0 +1,10 @@
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\BiometricsRestApplication.java
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\config\SecurityConfig.java
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\controller\HelloController.java
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\config\SwaggerConfig.java
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\mapper\TestMapper.java
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\feign\HelloClient.java
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\config\WebConfig.java
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\service\TestService.java
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\config\CachePropertiesConfig.java
+G:\framework\framework-rest\src\main\java\com\grgbanking\framework\rest\hytrix\HystrixWrappedHelloClient.java

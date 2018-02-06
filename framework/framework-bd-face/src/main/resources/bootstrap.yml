@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: biometrics-bd-face
+  http:
+    encoding: { charset: UTF-8, enable: true, force: true }
+info:
+  component: biometrics-bd-face
+  contact:
+    email: wyfei5@grgbanking.com
+    phone: 18710105371

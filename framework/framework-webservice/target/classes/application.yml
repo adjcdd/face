@@ -1,0 +1,73 @@
+server:
+  port: 8098
+  contextPath: /grgbanking/biometrics
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+  client:
+    registerWithEureka: false
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+hystrix:
+  command:
+    # Globally config
+    default:
+      execution:
+        # Disable Hystrix timeout globally (for all services)
+        timeout.enabled: false
+
+  threadpool:
+    default:
+      coreSize: 2000
+      maxQueueSize: 100
+      queueSizeRejectionThreshold: 20
+
+#数据库配置
+spring:
+  datasource:
+    dbType: mysql
+#    dbType: oracle
+#    dbType: db2
+    mysql:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://10.10.1.183:3306/grg_biometrics?useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: admin
+    oracle:
+      driverClassName: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@10.10.1.183:1521:orcl
+      username: facer
+      password: facer
+    db2:
+      driverClassName: com.ibm.db2.jcc.DB2Driver
+      url: jdbc:db2://10.10.1.183:50000/biometri
+      username: db2admin
+      password: db2admin
+  boot:
+    admin:
+      url: http://localhost:8090
+
+management:
+  security:
+    enabled: false
+
+# mybatis配置
+mybatis:
+    # 批量插入或更新时，每次事务执行的插入或更新数据行数
+#  writeMapperLocations: classpath:mapper/write/**.xml
+#  readMapperLocations: classpath:mapper/read/**.xml
+  config: mybatis-config.xml
+  rows_per_transaction: 500
+
+# Log 配置 级别大写 TRACE|DEBUG|INFO|WARN|ERROR
+logging:
+  level:
+    #root: INFO
+    com.grgbanking.biometrics: DEBUG
+

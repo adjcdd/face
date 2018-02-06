@@ -1,0 +1,9 @@
+com\grgbanking\framework\webservice\config\CxfConfig.class
+com\grgbanking\framework\webservice\BiometricsWebserviceApplication.class
+com\grgbanking\framework\webservice\mapper\TestMapper.class
+com\grgbanking\framework\webservice\feign\HelloClient.class
+com\grgbanking\framework\webservice\hytrix\HystrixWrappedHelloClient.class
+com\grgbanking\framework\webservice\service\impl\AppServiceImpl.class
+com\grgbanking\framework\webservice\config\SecurityConfig.class
+com\grgbanking\framework\webservice\gateway\AppServiceGateWay.class
+com\grgbanking\framework\webservice\service\AppService.class

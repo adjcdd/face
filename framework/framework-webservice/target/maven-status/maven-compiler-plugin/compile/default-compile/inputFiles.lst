@@ -1,0 +1,9 @@
+G:\framework\framework-webservice\src\main\java\com\grgbanking\framework\webservice\service\AppService.java
+G:\framework\framework-webservice\src\main\java\com\grgbanking\framework\webservice\BiometricsWebserviceApplication.java
+G:\framework\framework-webservice\src\main\java\com\grgbanking\framework\webservice\feign\HelloClient.java
+G:\framework\framework-webservice\src\main\java\com\grgbanking\framework\webservice\gateway\AppServiceGateWay.java
+G:\framework\framework-webservice\src\main\java\com\grgbanking\framework\webservice\hytrix\HystrixWrappedHelloClient.java
+G:\framework\framework-webservice\src\main\java\com\grgbanking\framework\webservice\config\CxfConfig.java
+G:\framework\framework-webservice\src\main\java\com\grgbanking\framework\webservice\mapper\TestMapper.java
+G:\framework\framework-webservice\src\main\java\com\grgbanking\framework\webservice\config\SecurityConfig.java
+G:\framework\framework-webservice\src\main\java\com\grgbanking\framework\webservice\service\impl\AppServiceImpl.java

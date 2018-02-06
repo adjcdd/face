@@ -1,0 +1,5 @@
+com\grgbanking\framework\db\config\MyBatisMapperScannerConfig.class
+com\grgbanking\framework\db\config\MyBatisDataSourceConfig.class
+com\grgbanking\framework\db\config\MyBatisSessionFactoryConfig.class
+com\grgbanking\framework\db\mapper\BaseMapper.class
+com\grgbanking\framework\db\mapper\LogBaseMapper.class

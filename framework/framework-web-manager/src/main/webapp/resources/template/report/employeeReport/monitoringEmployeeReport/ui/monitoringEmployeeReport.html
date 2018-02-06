@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="resources/common/css/common.css"/>
+    <link rel="stylesheet" href="resources/common/css/index.css"/>
+    <link rel="stylesheet" href="resources/common/css/jquery.mCustomScrollbar.css"/>
+    <link rel="stylesheet" href="resources/common/css/jquery.layer.css">
+    <link type="text/css" rel="stylesheet" href="resources/common/js/jedate/skin/jedate.css">
+    <script type="text/javascript" src="resources/common/js/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="resources/common/js/jedate/jquery.jedate.js"></script>
+    <script src="resources/common/js/jquery/jquery.mousewheel.min.js"></script>
+    <script src="resources/common/js/jquery/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="resources/common/js/initialize.js"></script>
+    <script type="text/javascript" src="resources/common/js/common.js"></script>
+    <script type="text/javascript" src="resources/common/js/dataLink.js"></script>
+    <script type="text/javascript" src="resources/common/js/validate/validate.js"></script>
+    <script type="text/javascript" src="resources/common/js/pagination/pagination.js"></script>
+    <script type="text/javascript" src="resources/common/js/utils/utils.js"></script>
+    <script src="resources/common/js/layer/jquery.layer.js"></script>
+    <script src="resources/common/js/validate/checkInputJs.js"></script>
+    <script type="text/javascript" src="resources/template/report/employeeReport/monitoringEmployeeReport/js/monitoringEmployeeReport.js"></script>
+    <script type="text/javascript" src="resources/template/report/employeeReport/monitoringEmployeeReport/js/monitoringEmployeeReportTemplate.js"></script>
+
+    <style>
+        /*时间选择框*/
+        #search_start_time,#search_end_time{width:100px; height:24px; border:1px #A5D2EC solid;}
+        .wicon{background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAQCAYAAADj5tSrAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNi8xNS8xNGnF/oAAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAAoElEQVQ4jWPceOnNfwYqAz9dYRQ+E7UtwAaGjyUsDAyYYUgJ2HT5LXZLcEmSCnA6duOlN///////H0bDALl8dPH/////Z8FuNW6Qtvw2nL3lyjsGBgYGhlmRqnj1kGwJuqHIlhJlCXq8EOITEsdqCXLEbbr8FisfFkTo+vBZRFZwERNEFFkCiw90nxJtCalxQmzegltCzVyP1RJq5HZ8AABuNZr0628DMwAAAABJRU5ErkJggg=="); background-repeat:no-repeat; background-position:right center;}
+    </style>
+
+</head>
+<body>
+<div id="operation" class="removeFloatEffect">
+    <div class="search rt">
+        <span>姓名：</span><input type="text" id="search_name" query-value="" data-type="name" placeholder="请输入姓名" style="width: 105px;"/>
+        <span>身份证号：</span><input type="text" id="search_ctfNo" query-value="" data-type="ctfNo" placeholder="请输入身份证号" style="width: 105px;"/>
+        <span>开始日期：</span><input class="wicon" id="search_start_time" query-value="" data-type="start_time" type="text" placeholder="请选择开始日期" value="" readonly  />
+        <span>结束日期：</span><input class="wicon" id="search_end_time" query-value="" data-type="end_time" type="text" placeholder="请选择结束日期" value="" readonly />
+        <a id="search" class="commonButton"><span>查询</span></a>
+        <a id="export" class="commonButton"><span>导出</span></a>
+    </div>
+</div>
+<div id="ecportHiddenDiv" hidden="hidden"></div>
+
+<!-- 页面主体 -->
+<div class="content_main">
+    <!-- 表头 -->
+    <table cellpadding="0" cellspacing="1">
+        <!-- 列数及宽度设置 -->
+        <colgroup>
+            <col width="7%">
+            <col width="6%">
+            <col width="7%">
+            <col width="7%">
+            <col width="7%">
+            <col width="6%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="7%">
+            <col width="8%">
+            <col width="6%">
+            <col width="6%">
+            <col width="9%">
+            <col width="9%">
+        </colgroup>
+        <!-- 列名设置 -->
+        <thead>
+        <tr>
+            <th width="7%">姓名</th>
+            <th width="6%">部门</th>
+            <th width="7%">开始日期</th>
+            <th width="7%">结束日期</th>
+            <th width="7%">考勤日期</th>
+            <th width="6%">考勤结果</th>
+            <th width="5%">迟到次数</th>
+            <th width="5%">早退次数</th>
+            <th width="5%">正常次数</th>
+            <th width="7%">应出勤天数</th>
+            <th width="8%">实际出勤天数</th>
+            <th width="6%">迟到时长</th>
+            <th width="6%">早退时长</th>
+            <th width="9%">上班无考勤次数</th>
+            <th width="9%">下班无考勤次数</th>
+        </tr>
+        </thead>
+    </table>
+    <!-- 表体 -->
+    <div class="table_body tableContent">
+        <!-- 列数及宽度设置 -->
+        <table id="MonitoringEmployeeDailyTable" cellpadding="0" cellspacing="1">
+            <colgroup>
+                <col width="7%">
+                <col width="6%">
+                <col width="7%">
+                <col width="7%">
+                <col width="7%">
+                <col width="6%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="7%">
+                <col width="8%">
+                <col width="6%">
+                <col width="6%">
+                <col width="9%">
+                <col width="9%">
+            </colgroup>
+            <!-- 数据 -->
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 页码 -->
+    <div class="navigation">
+        <div class="navigation_left">
+            共<label id="totalNum">0</label>条数据, 第<span id="currentPage">1</span>页/共[<label id="totalPage">0</label>]页<input id="pageSize" style="display:none"/>
+        </div>
+        <div class="navigation_right">
+            <input type="button" value="首页" id="first" />
+            <input type="button" value="上一页" id="previous" />
+            <input type="button" value="下一页" id="next" />
+            <input type="button" value="尾页" id="last" />
+            转到
+            <input type="text" id="jumpNo" class="turn">
+            页
+            <input type="button" id="jumpPageButton" value="跳转" />
+        </div>
+    </div>
+</div>
+
+<!-- 提示信息 -->
+<div class="promptInfor" style="display: none"></div>
+</body>
+</html>

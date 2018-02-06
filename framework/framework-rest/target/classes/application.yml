@@ -1,0 +1,97 @@
+server:
+  port: 8080
+  contextPath: /grgbanking/framework
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: 123456
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+#ribbon:
+#  eureka.enabled: false
+#biometrics-authenmetric-face:
+#  ribbon:
+#    listOfServers: 127.0.0.1:8091
+
+hystrix:
+  command:
+    # Globally config
+    default:
+      execution:
+        # Disable Hystrix timeout globally (for all services)
+        timeout.enabled: false
+
+  threadpool:
+    default:
+      coreSize: 2000
+      maxQueueSize: 100
+      queueSizeRejectionThreshold: 20
+
+#数据库配置
+spring:
+  datasource:
+    dbType: mysql
+#    dbType: oracle
+#    dbType: db2
+    mysql:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/grg_framework?useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: 123456
+    oracle:
+      driverClassName: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@10.10.1.183:1521:orcl
+      username: facer
+      password: facer
+    db2:
+      driverClassName: com.ibm.db2.jcc.DB2Driver
+      url: jdbc:db2://10.10.1.183:50000/biometri
+      username: db2admin
+      password: db2admin
+  boot:
+    admin:
+      url: http://localhost:8090
+
+management:
+  security:
+    enabled: false
+
+quartz:
+  scheduler:
+    instanceName: GrgScheduler
+
+# mybatis配置
+mybatis:
+    # 批量插入或更新时，每次事务执行的插入或更新数据行数
+#  writeMapperLocations: classpath:mapper/write/**.xml
+#  readMapperLocations: classpath:mapper/read/**.xml
+  config: mybatis-config.xml
+  rows_per_transaction: 500
+
+# Log 配置 级别大写 TRACE|DEBUG|INFO|WARN|ERROR
+logging:
+  level:
+    #root: INFO
+    com.grgbanking.framework: DEBUG
+
+recognize:
+  face:
+   arithmetic: bd
+
+rest:
+  server:
+    # 服务编号，当部署REST服务集群时，集群中的每个节点均需进行唯一编号
+    # 当单节点部署REST服务时，只需取01（第一个节点）
+    node: REST-01

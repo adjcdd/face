@@ -1,0 +1,92 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="resources/common/css/common.css"/>
+    <link rel="stylesheet" href="resources/common/css/jquery.layer.css">
+    <link rel="stylesheet" href="resources/common/css/index.css"/>
+    <link rel="stylesheet" href="resources/common/css/jquery.mCustomScrollbar.css"/>
+    <link rel="stylesheet" href="resources/common/css/faceindex.css"/>
+    <script type="text/javascript" src="resources/common/js/utils/utils.js"></script>
+    <script type="text/javascript" src="resources/common/js/common.js"></script>
+    <script type="text/javascript" src="resources/common/js/dataLink.js"></script>
+    <script type="text/javascript" src="resources/common/js/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="resources/template/monitoring/js/monitoringTemplate.js"></script>
+    <script type="text/javascript" src="resources/template/monitoring/js/monitoring.js"></script>
+    <script src="resources/common/js/jquery/jquery.mCustomScrollbar.min.js"></script>
+    <script src="resources/common/js/jquery/jquery.mousewheel.min.js"></script>
+    <script src="resources/common/js/index.js"></script>
+    <script src="resources/common/js/jquery/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="resources/common/js/initialize.js"></script>
+    <script type="text/javascript" src="resources/common/js/pagination/pagination.js"></script>
+    <script src="resources/common/js/layer/jquery.layer.js"></script>
+    <script src="resources/common/js/validate/checkInputJs.js"></script>
+    <script type="text/javascript" src="dwr/engine.js"></script>
+    <script type="text/javascript" src="dwr/util.js"></script>
+    <script type="text/javascript" src="dwr/interface/messagePush.js"></script>
+</head >
+<body>
+    <div class="removeFloatEffect" id="mainContent">
+        <!--<label>实时监控</label>-->
+        <div class="lf" id="menuList">
+            <ul>
+                <li>
+                    <i data-type="1"></i><label>部门</label>
+                    <ol>
+                        <li>一号</li>
+                        <li>二号</li>
+                        <li>三号</li>
+                    </ol>
+                </li>
+                <li>
+                    <i data-type="1"></i><label>终端</label>
+                    <ol>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
+        <div class="lf" id="rightContent">
+            <div class="removeFloatEffect">
+                <div class="lf module">
+                    <p>终端实时画面</p>
+                    <span style="display: none">主键：</span><label style="display: none" id="employeeQuery_id"></label>
+                    <div class="videoPaper" id="message">
+                        <img width="100%" height="100%" id="face"/>
+                    </div>
+                </div>
+                <div class="lf module" id="work">
+                    <p>个人考勤画面</p>
+                    <label>现场照：</label>
+                    <div id="imageId">
+                        <img width="70%" height="60%" id="face2">
+                        <div id="labelId"></div>
+                         <div id="labelId1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="removeFloatEffect" id="rightContentDown">
+                <div class="lf module">
+                    <p>未匹配信息</p>
+                    <div class="content listDiv">
+                        <ul id="recordList" class="removeFloatEffect"></ul>
+                    </div>
+                </div>
+                <div class="lf module">
+                    <p>已签到列表</p>
+                    <div class="content listDiv" style="z-index:500">
+                        <ul id="writeList" class="removeFloatEffect"  style="overflow: visible"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ <!--  <div id="executePage" class="hiddenClass">
+       <input id="refreshAll" />
+   </div>-->
+   <!-- 提示信息 -->
+   <!--<div class="promptInfor" style="display: none"></div>-->
+</body >
+</html>

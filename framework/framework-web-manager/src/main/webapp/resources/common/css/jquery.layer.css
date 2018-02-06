@@ -1,0 +1,165 @@
+.jquery-layer-fr{
+    /*float: right;*/
+}
+.jquery-layer-ml10{
+    margin-left:10px; 
+}
+.jquery-layer-zoom{
+    overflow: hidden;
+    zoom:1;
+    text-align: center;
+}
+
+.jquery-layer-noselect{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.jquery-layer{
+    position: absolute;
+    z-index: 1001;
+    display: block;
+    font-size: 14px;
+}
+
+.jquery-layer a{outline: none;}
+.jquery-layer a:hover{text-decoration: none;}
+
+.jquery-layer-tip{
+    -webkit-animation-duration:0.5s;
+    animation-duration:0.5s;
+    position: fixed;
+    left: 50%;
+    top:50%;
+    padding: 16px;
+    background: rgba(0,0,0,.6);
+    border-radius: 3px;
+    color: #fff;
+    font-size: 14px;
+    max-width: 200px;
+    line-height: 1.5;
+
+}
+
+.jquery-layer-mask{
+    position: fixed;
+    z-index: 1000;
+    background: rgba(255,255,255,.6);
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.layer-loading{
+    background: url("data:image/gif;charset=utf-8;base64,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") no-repeat center;
+}
+
+.jquery-layer{
+    -webkit-animation-duration:0.3s;
+    animation-duration:0.3s;
+    position: fixed;
+    left:45%;
+    top:40%;
+    background: #fff;
+    min-width: 300px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 10px #888888;
+}
+/*
+* mod by mc 2017-09-28
+* 去掉上边框和背景颜色
+ */
+.jquery-layer-title{
+    padding: 0 0 0 20px;
+    height: 30px;
+    line-height: 42px;
+    /*border-bottom: 1px solid #eee;*/
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /*background-color: #2e8ded;*/
+    border-radius: 3px 3px 0 0;
+    /*background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e8ded), to(#6BCFF4));*/
+}
+.jquery-layer-h2{
+    color: #fff;
+    font-size:14px;
+}
+/*
+* mod by mc 2017-09-28
+* 去掉红色关闭按钮
+ */
+.jquery-layer-close{
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    /*background: url("../../common/image/tagHover.png") no-repeat center;*/
+    opacity: 0.85;
+    float: right;
+    margin-top:8px;
+    margin-right:10px;
+}
+.jquery-layer-close:hover{
+    opacity: 1;
+}
+
+.jquery-layer-nav{
+    padding: 15px;
+    text-align: center;
+}
+.jquery-layer-bar{
+    padding: 0 15px 15px 15px;
+}
+
+a.jquery-layer-btn,
+a.jquery-layer-btn:hover{
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    border: 1px #dedede solid;
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    font-size:12px;
+}
+
+a.jquery-layer-btn-blue,
+a.jquery-layer-btn-blue:hover{
+    border-color: #4898d5;
+    background-color: #2e8ded;
+    color: #fff;
+}
+
+
+@-webkit-keyframes zoomIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale3d(.3, .3, .3);
+        transform: scale3d(.3, .3, .3)
+    }
+    50% {
+        opacity: 1
+    }
+}
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        -webkit-transform: scale3d(.3, .3, .3);
+        transform: scale3d(.3, .3, .3)
+    }
+    50% {
+        opacity: 1
+    }
+}
+.zoomIn {
+    -webkit-animation-name: zoomIn;
+    animation-name: zoomIn
+}

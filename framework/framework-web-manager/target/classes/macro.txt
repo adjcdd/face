@@ -1,0 +1,93 @@
+
+#*
+ * 下拉列表宏
+ * $list : 列表数据
+ * $name : 传递到后台的表单name
+ * $defaultValue : 默认值
+ * $width : 列表宽度
+ * $addBlank : 是否添加空白选项(true : 有空白；false : 无空白)
+*#
+#macro(ComSelect $list $name $defaultValue $width $addBlank)
+#if($width == "")
+#set($width = 140)
+#end
+
+<div class="com_select js-select" style="width: ${width}px;"></div><input type="hidden" name="$name" value="$!{defaultValue}" />
+<div class="com_select_open js-select-open">
+	<ul>
+	#if($addBlank == true)
+	<li><a href="#" data=""></a></li>
+	#end
+	#foreach($row in $list)
+	<li><a href="#" data="$row.configCode">${row.configName}</a></li>
+	#end
+	</ul>
+</div>
+#end
+
+
+#**
+ * 分页宏
+ * $pager : 分页pager对象
+ *
+ *   原始UE界面为：
+ * <div class="w-page-nav">
+ *	<a href="#" class="operate-btn">首页</a><a href="#">1</a><a href="#">2</a><a href="#" class="current"><span>3</span></a><a href="#">4</a><a href="#">5</a><a href="#" class="operate-btn">下一页</a><a href="#" class="operate-btn">尾页</a>
+ * </div>
+**#
+#macro(pagination $pager $listCount)
+	#set($index = $pager.pageNo / $listCount)
+	#set($mid = $pager.pageNo % $listCount)
+	#if($mid == 0)
+	#set($index = $index - 1)
+	#end
+	
+	#set($begin = $index * $listCount + 1)
+
+	#set($end = $begin + $listCount - 1)
+	
+	#if($end > $pager.totalPageCount)
+	#set($end = $pager.totalPageCount)
+	#end
+	
+	
+	#if($end - $begin + 1 - $listCount < 0)
+	#set($begin = $end - $listCount + 1)
+	#end
+	
+	#if($end <=0)
+	分页数据有错:当前页(pageNo)=${pager.pageNo}|每页条数(pageSize)=${pager.pageSize}|总记录数(totalCount)=${pager.totalCount}请检查page对象的值
+	#end
+	
+	#if($end <= 0)
+	#set($end = 1)
+	#end
+	
+	#if($begin <= 0)
+	#set($begin = 1)
+	#end
+	
+	#set($i_end = $util.parseInt($end) )
+	#set($i_begin = $util.parseInt($begin) )
+	
+	#set($upPageNo = $pager.pageNo - 1)
+	#set($downPageNo = $pager.pageNo + 1)
+	
+	  <div class="w-page-nav">
+	  <a href="#" class="operate-btn" data="1">首页</a>
+	#if($pager.pageNo > 1)
+	  <a href="#" class="operate-btn" data="${upPageNo}">上一页</a>
+	#end
+	#foreach ($i in [$i_begin..$i_end])
+	  #if($i == $pager.pageNo)
+	  <a href="#" class="current" data="${i}"><span>${i}</span></a>
+	  #else
+	  <a href="#" data="${i}">${i}</a>
+	  #end
+	#end
+	#if($pager.pageNo < $pager.totalPageCount)
+	  <a href="#" class="operate-btn" data="${downPageNo}">下一页</a>
+	#end
+	  <a href="#" class="operate-btn" data="${pager.totalPageCount}">尾页</a>
+	</div>
+#end

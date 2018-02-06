@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.framework.manager.mapper.UserMapper">
+
+    <!--<resultMap id="userMap" type="UserPojo">
+        <id property="id"                   column="id"/>
+        <result property="name"            column="name"/>
+        <result property="username"        column="username"/>
+        <result property="password"        column="password"/>
+        <result property="createTime"       column="createTime"/>
+        <result property="updateTime"       column="updateTime"/>
+    </resultMap>-->
+
+    <resultMap id="userMap" type="UserPojo">
+        <id property="id"                   column="id"/>
+        <result property="name"            column="NAME"/>
+        <result property="username"        column="USERNAME"/>
+        <result property="password"        column="PASSWORD"/>
+        <result property="createTime"       column="CREATE_TIME"/>
+        <result property="updateTime"       column="UPDATE_TIME"/>
+        <result property="createUser"       column="create_user"/>
+        <result property="updateUser"       column="update_user"/>
+        <result property="status"       column="status"/>
+        <result property="telphone"       column="telphone"/>
+        <result property="email"       column="email"/>
+        <collection property="rolePojoList" ofType="RolePojo">
+            <id column="role_id" property="id"/>
+            <result column="role_name" property="roleName"/>
+            <result column="grostatus" property="status"/>
+            <collection property="authorityPojoList" ofType="AuthorityPojo">
+                <id column="authority_id" property="id"/>
+                <result column="authority_name" property="authorityName"/>
+                <result column="authority_level" property="authorityLevel"/>
+                <result column="sort_id" property="sortId"/>
+                <result column="url" property="url"/>
+                <result column="pid" property="pid"/>
+                <result column="img" property="img"/>
+                <result column="class_name" property="className"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="getUserByUsername" resultMap="userMap">
+        SELECT
+        id AS id,
+        `name` AS `NAME`,
+        username AS username,
+        password AS PASSWORD,
+        create_time AS CREATE_TIME,
+        update_time AS UPDATE_TIME,
+        create_user,
+        update_user,
+        telphone,
+        email,
+        status
+        FROM
+        grgm_user
+        WHERE username = #{username}
+    </select>
+
+
+    <select id="getUserInfo" resultMap="userMap">
+        SELECT
+        gus.id AS id,
+        name AS NAME,
+        username AS username,
+        <!--PASSWORD AS PASSWORD,-->
+        gus.create_time AS CREATE_TIME,
+        gus.update_time AS UPDATE_TIME,
+        gus.create_user,
+        gus.update_user,
+        telphone,
+        gus.STATUS,
+        email,
+        gro.id AS role_id,
+        gro.role_name,
+        gro.status AS grostatus
+        FROM
+        grgm_user AS gus LEFT JOIN grgm_user_role gur ON gus.id = gur.user_id
+        LEFT JOIN grgm_role gro ON gur.role_id = gro.id
+        WHERE
+        gus.id = #{id}
+    </select>
+
+    <select id="getUserDetial" resultMap="userMap">
+        SELECT
+        id,
+        name AS NAME,
+        username AS username,
+        create_time AS CREATE_TIME,
+        update_time AS UPDATE_TIME,
+        create_user,
+        update_user,
+        telphone,
+        STATUS,
+        email
+        FROM
+        grgm_user
+        WHERE
+        id = #{id}
+    </select>
+
+    <select id="getUserList" resultMap="userMap">
+        SELECT
+        gus.id AS id,
+        name AS NAME,
+        username AS username,
+        gus.create_time AS CREATE_TIME,
+        gus.update_time AS UPDATE_TIME,
+        gus.create_user,
+        gus.update_user,
+        telphone,
+        gus.STATUS,
+        email,
+        gro.id AS role_id,
+        gro.role_name
+        FROM
+        grgm_user AS gus LEFT JOIN grgm_user_role gur ON gus.id = gur.user_id
+        LEFT JOIN grgm_role gro ON gur.role_id = gro.id
+        WHERE
+        1=1
+        AND gus.id IN (
+            SELECT A.id FROM (
+                SELECT
+                id
+                FROM
+                grgm_user
+                WHERE
+                1=1
+                AND username &lt;&gt; "admin"
+                AND id NOT IN(
+                SELECT grgm_user.id
+                FROM grgm_user,grgm_role,grgm_role_authority,grgm_user_role,grgm_authority
+                WHERE grgm_user.id = grgm_user_role.user_id AND
+                grgm_role.id = grgm_user_role.role_id AND
+                grgm_role.id = grgm_role_authority.role_id AND
+                grgm_authority.id = grgm_role_authority.authority_id AND
+                grgm_authority.authority_level = 0
+                )
+                <include refid="userListCondition"/>
+                ORDER BY
+                id DESC
+                LIMIT #{currentCount},#{pageSize}
+            ) AS A
+        )
+        ORDER BY
+        gus.id DESC
+    </select>
+
+
+    <select id="getUserListByAdmin" resultMap="userMap">
+        SELECT
+        gus.id AS id,
+        name AS NAME,
+        username AS username,
+        <!--PASSWORD AS PASSWORD,-->
+        gus.create_time AS CREATE_TIME,
+        gus.update_time AS UPDATE_TIME,
+        gus.create_user,
+        gus.update_user,
+        telphone,
+        gus.STATUS,
+        email,
+        gro.id AS role_id,
+        gro.role_name
+        FROM
+        grgm_user AS gus LEFT JOIN grgm_user_role gur ON gus.id = gur.user_id
+        LEFT JOIN grgm_role gro ON gur.role_id = gro.id
+        WHERE
+        1=1
+        AND gus.id IN (
+        SELECT A.id FROM (
+        SELECT
+        id
+        FROM
+        grgm_user
+        WHERE
+        1=1
+        AND username &lt;&gt; "admin"
+        <include refid="userListCondition"/>
+        ORDER BY
+        id DESC
+        LIMIT #{currentCount},#{pageSize}
+        ) AS A
+        )
+        ORDER BY
+        gus.id DESC
+    </select>
+
+    <select id="getUserCount" resultType="java.lang.Long">
+        SELECT
+        COUNT(ID)
+        FROM
+        grgm_user
+        WHERE
+        1=1
+        AND username &lt;&gt; "admin"
+        AND id NOT IN(
+        SELECT grgm_user.id
+        FROM grgm_user,grgm_role,grgm_role_authority,grgm_user_role,grgm_authority
+        WHERE grgm_user.id = grgm_user_role.user_id AND
+        grgm_role.id = grgm_user_role.role_id AND
+        grgm_role.id = grgm_role_authority.role_id AND
+        grgm_authority.id = grgm_role_authority.authority_id AND
+        grgm_authority.authority_level = 0
+        )
+        <include refid="userListCondition"/>
+    </select>
+
+    <select id="getUserCountByAdmin" resultType="java.lang.Long">
+        SELECT
+        COUNT(ID)
+        FROM
+        grgm_user
+        WHERE
+        1=1
+        AND username &lt;&gt; "admin"
+        <include refid="userListCondition"/>
+    </select>
+
+    <sql id="userListCondition">
+        <if test="null != username and '' != username">
+            AND USERNAME LIKE CONCAT('%',#{username},'%')
+        </if>
+        <if test="null != name and '' != name">
+            AND NAME LIKE CONCAT('%',#{name},'%')
+        </if>
+    </sql>
+
+    <select id="checkIsExistUser" resultType="java.lang.Integer">
+        SELECT
+        count(ID)
+        FROM
+        grgm_user
+        WHERE
+        USERNAME = #{username}
+        <!--AND status = 0-->
+        <if test="null != id and 0 != id">
+            AND id &lt;&gt; #{id}
+        </if>
+    </select>
+
+    <insert id = "bindUserRole" parameterType = "RolePojo">
+        INSERT INTO grgm_user_role (
+                role_id,
+                user_id
+                )
+                VALUES
+                (
+                #{role_id},
+                #{user_id}
+                )
+    </insert>
+
+    <delete id ="clearUserRole">
+        DELETE
+        FROM
+        grgm_user_role
+        WHERE
+        user_id = #{user_id}
+    </delete>
+
+    <delete id ="deleteUser">
+        DELETE
+        FROM
+        grgm_user
+        WHERE
+        id = #{id}
+    </delete>
+
+    <insert id = "addUser" parameterType ="UserPojo">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO grgm_user (
+                NAME,
+                USERNAME,
+                CREATE_TIME,
+                create_user,
+                status,
+                telphone,
+                email
+                )
+                VALUES
+                (
+                #{name},
+                #{username},
+                #{createTime},
+                #{createUser},
+                #{status},
+                #{telphone},
+                #{email}
+                )
+    </insert>
+
+
+    <update id = "editUser" parameterType ="UserPojo">
+            UPDATE grgm_user
+            SET
+                NAME = #{name},
+                USERNAME = #{username},
+                UPDATE_TIME = #{updateTime},
+                update_user = #{updateUser},
+                status = #{status},
+                telphone = #{telphone},
+                email = #{email}
+            WHERE
+                id = #{id}
+    </update>
+
+    <update id = "resertPassword">
+            UPDATE grgm_user
+            SET
+              PASSWORD = "E10ADC3949BA59ABBE56E057F20F883E"
+            WHERE
+                id = #{id}
+    </update>
+
+    <update id = "updatePassword">
+        UPDATE grgm_user
+        SET
+        PASSWORD = #{password}
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="getAuthorityByUsername" resultMap="userMap">
+        SELECT
+        gus.ID AS id,
+        grot.groid AS role_id,
+        grot.authority_level AS authority_level,
+        grot.gauid AS authority_id,
+        grot.authority_name AS authority_name,
+        grot.sort_id AS sort_id,
+        grot.url AS url,
+        grot.pid AS pid,
+        grot.img AS img,
+        grot.class_name AS class_name
+        FROM
+        `grgm_user` AS gus LEFT JOIN `grgm_user_role` gur ON gus.id = gur.user_id
+        LEFT JOIN
+        (
+        SELECT
+        gro.id AS groid,
+        gau.id AS gauid,
+        gau.authority_name,
+        gau.authority_level,
+        gau.sort_id,
+        gau.url,
+        gau.pid,
+        gau.img,
+        gau.class_name
+        FROM grgm_role gro LEFT JOIN grgm_role_authority gra ON gra.role_id = gro.id
+        LEFT JOIN grgm_authority gau ON gra.authority_id = gau.id
+        WHERE
+        gro.status = 1
+        ) AS grot
+        ON gur.role_id = grot.groid
+        WHERE username = #{username}
+        AND status = 1
+    </select>
+
+    <!--<select id="getAuthorityByUsername" resultMap="userMap">
+        SELECT
+        gus.ID AS gusid,
+        gus.NAME,
+        gus.USERNAME,
+        gus.PASSWORD,
+        gus.CREATE_TIME,
+        gus.UPDATE_TIME,
+        grot.groid AS role_id,
+        grot.role_name AS role_name,
+        grot.gauid AS authority_id,
+        grot.authority_name AS authority_name,
+        grot.url AS url,
+        grot.pid AS pid,
+        grot.img AS img,
+        grot.class_name AS class_name
+        FROM
+        `grgm_user` AS gus LEFT JOIN `grgm_user_role` gur ON gus.id = gur.user_id
+        LEFT JOIN
+        (
+        SELECT
+        gro.id AS groid,
+        gro.role_name,
+        gau.id AS gauid,
+        gau.authority_name,
+        gau.url,
+        gau.pid,
+        gau.img,
+        gau.class_name
+        FROM grgm_role gro LEFT JOIN grgm_role_authority gra ON gra.role_id = gro.id
+        LEFT JOIN grgm_authority gau ON gra.authority_id = gau.id
+        ) AS grot
+        ON gur.role_id = grot.groid
+        WHERE username = #{username}
+    </select>-->
+
+</mapper>

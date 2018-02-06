@@ -1,0 +1,145 @@
+body{
+    font-size:14px;
+    font-family: "microsoft yahei";
+}
+.lf{
+    float:left;
+}
+.rt{
+    float:right;
+}
+ul,ol{
+    list-style-type: none;
+}
+/*清除子元素浮动给父元素带来的影响*/
+.removeFloatEffect:after{
+    content: '';
+    display:block;
+    clear:both;
+}
+#mainContent{
+    width:90%;
+    height:500px;
+    margin:0 auto;
+    border:1px solid #aaa;
+    position: relative;
+}
+#mainContent>label{
+    display: inline-block;
+    width:100px;
+    height:25px;
+    border:1px solid #aaa;
+    font-size:16px;
+    background:#fff;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    top:-15px;
+    left:10px;
+}
+#menuList{
+    width:20%;
+    border-right:2px solid #aaa;
+    height:500px;
+    padding-top:50px;
+    box-sizing: border-box;
+}
+#menuList>ul>li>i{
+    display:inline-block;
+    width:15px;
+    height:15px;
+    background: url("../image/right.png");
+    background-size: cover;
+}
+#menuList>ul>li>label{
+    font-size:15px;
+    margin-left:5px;
+}
+#menuList>ul>li{
+    margin-top:10px;
+}
+#menuList>ul>li>ol{
+    display: none;
+}
+#rightContent{
+    width:80%;
+}
+.module{
+    width:50%;
+    height:250px;
+    box-sizing: border-box;
+}
+.module>p{
+    line-height: 30px;
+    color:#fff;
+    border-bottom:1px solid #aaa;
+    font-size:15px;
+    padding-left:10px;
+    box-sizing: border-box;
+    background:#6AADD5;
+    margin-top:0;
+}
+.videoPaper{
+    width:95%;
+    height:200px;
+    border:1px solid #aaaaaa;
+    margin:5px auto;
+}
+.module img{
+    border:1px dotted #ccc;
+}
+.module:first-child{
+    border-right:1px solid #aaa;
+}
+#work>label{
+    margin-left:40px;
+}
+#work>div{
+    text-align: center;
+    margin-top:5px;
+}
+#rightContentDown{
+    border-top:1px solid #aaa;
+}
+#recordList,#writeList{
+    padding:0px;
+}
+#recordList>li{
+    float:left;
+    margin-left:20px;
+}
+#recordList>li>img{
+    width:100px;
+    height:80px;
+}
+#writeList>li>img{
+    width:100px;
+    height:80px;
+}
+#writeList>li{
+    float:left;
+    position: relative;
+    margin-left:24px;
+    width:100px;
+}
+#writeList>li>p>label{
+    font-size:12px;
+}
+#writeList>li>ol{
+    display: none;
+    width:110px;
+    position: absolute;
+    top:-10px;
+    right:-15px;
+    background:#fff;
+    border:1px solid #aaa;
+    padding:0;
+    z-index: 1000;
+}
+#writeList>li>ol>li{
+    line-height: 25px;
+}
+.listDiv{
+    height:220px;
+    overflow-x: hidden;
+}

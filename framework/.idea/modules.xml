@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/framework-bd-face/framework-bd-face.iml" filepath="$PROJECT_DIR$/framework-bd-face/framework-bd-face.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-dashboard/framework-dashboard.iml" filepath="$PROJECT_DIR$/framework-dashboard/framework-dashboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-db/framework-db.iml" filepath="$PROJECT_DIR$/framework-db/framework-db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-domains/framework-domains.iml" filepath="$PROJECT_DIR$/framework-domains/framework-domains.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-eurekaserver/framework-eurekaserver.iml" filepath="$PROJECT_DIR$/framework-eurekaserver/framework-eurekaserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-metrics-admin/framework-metrics-admin.iml" filepath="$PROJECT_DIR$/framework-metrics-admin/framework-metrics-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-rest/framework-rest.iml" filepath="$PROJECT_DIR$/framework-rest/framework-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-time/framework-time.iml" filepath="$PROJECT_DIR$/framework-time/framework-time.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-turbine/framework-turbine.iml" filepath="$PROJECT_DIR$/framework-turbine/framework-turbine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-util/framework-util.iml" filepath="$PROJECT_DIR$/framework-util/framework-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-web-manager/framework-web-manager.iml" filepath="$PROJECT_DIR$/framework-web-manager/framework-web-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/framework-webservice/framework-webservice.iml" filepath="$PROJECT_DIR$/framework-webservice/framework-webservice.iml" />
+    </modules>
+  </component>
+</project>

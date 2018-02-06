@@ -1,0 +1,1447 @@
+/**
+*页脚样式
+**/
+#footer>p{
+    background:#196DAB;
+    color:#fff;
+    text-align: center;
+    padding:5px 0;
+}
+/**
+*页头样式
+**/
+#header,#content{
+    width:100%;
+    margin:0 auto;
+}
+/*LOGO和平台名称*/
+.header_left{
+    width:12.5%;
+    height:62px;
+    box-sizing:border-box;
+    border-bottom:2px solid rgba(51,143,198,0.3);
+}
+.header_left>img{
+    margin:5px auto;
+    display:block;
+}
+.header_left>h1{
+    font-size:16px;
+    text-align: center;
+    padding-left:2px;
+    margin:0;
+}
+/*导航主菜单、修改密码和退出、欢迎使用*/
+.header_right{
+    height:62px;
+    width:87.5%;
+    background:#338fc6;
+    position:relative;
+}
+/*修改密码和退出*/
+.header_ul{
+    padding:0 10px;
+    height:62px;
+    line-height:62px;
+    color:#ffffff;
+    font-size:12px;
+}
+.header_ul ul>li{
+    float:left;
+    padding:0 4px;
+    cursor: pointer;
+}
+.header_ul ul>li>em{
+    display: inline-block;
+    width:14px;
+    height:14px;
+    background:url("../image/repassword.png");
+    margin-right:4px;
+    margin-bottom: -2px;
+}
+.header_ul ul>li+li>em{
+    width:14px;
+    background:url("../image/tuichu.png");
+}
+.header_ul ul>li:nth-child(2){
+    width:2px;
+    height:62px;
+    background:url("../image/line.png") no-repeat center;
+}
+/*欢迎使用*/
+.login{
+    height:62px;
+}
+.login p{
+    display:block;
+    line-height:62px;
+    background:url("../image/zhanghao1.png") no-repeat left;
+    padding-left:26px;
+    font-size:12px;
+    color:#ffffff;
+}
+/*导航主菜单*/
+.nav_ul li{
+    height:62px;
+    float:left;
+}
+.nav_ul li a p{
+    margin-top:10px;
+    text-align: center;
+}
+.nav_ul li a p img{
+    width:24px;
+    height:24px;
+}
+.nav_ul li span{
+    padding:0 13px;
+    display:block;
+    color:#ffffff;
+}
+.nav_ul>li:hover{
+    cursor: pointer;
+    background:#29729e;
+}
+.navCheck{
+    background:#29729e;
+}
+/**
+*主体内容左侧子菜单栏
+**/
+.con_left_top{
+    height:30px;
+    border-bottom:2px solid rgba(51,143,198,0.3);
+    text-align: center;
+}
+.con_left_top>img{
+    vertical-align: middle;
+    margin-top:8px;
+}
+.con_left{
+    width:12.5%;
+    height:546px;
+    background:#fff;
+    border-bottom:0;
+    border-top:0;
+    box-sizing: border-box;
+    border-right:1px solid rgba(51,143,198,0.3);
+}
+.subMenu{
+    padding:4px 10px;
+}
+.subMenu>li{
+    padding-left:15px;
+    line-height:34px;
+    border-bottom: 1px dashed #8a7874;
+}
+.subMenu>li>a{
+    margin-left:-12px;
+    font-size:14px;
+    text-decoration: none;
+    color:#474747;
+}
+.subMenu>li>a>i{
+    display:inline-block;
+    width:6px;
+    height:6px;
+    margin-right:5px;
+    background-image:url("../image/dot.png");
+}
+.subMenu>li>a:hover{
+    color:#328FC5;
+}
+/**
+*主体内容右侧内容
+**/
+.con_right{
+    width:100%;
+    height:546px;
+    box-sizing: border-box;
+    background:#fafafa;
+}
+.list{
+    width:100%;
+    height:509px;
+    background:#fafafa;
+    box-sizing: border-box;
+}
+/*子页面主体内容*/
+.content_main{
+	width:100%;
+	height:100%;
+	margin:0 auto;
+}
+/*子页面-表格页面*/
+.content_main .table_body{
+    height:398px;
+    overflow: auto;
+}
+.content_main .table_body .mCSB_container{
+    margin-right: 0px;
+}
+
+input{
+	margin:0;
+	padding:0;
+	font-size:12px;
+	border-radius: 3px;
+}
+/*mod by ylj at 2017-08-26 end*/
+/*add by ylj at 2017-08-22 start*/
+/* 查询样式 */
+.search>span{
+	font-size:14px;
+}
+.search input{
+	border:1px solid #555;
+}
+.search select{
+    padding:2px 0;
+    border:1px solid #555;
+}
+.search input[type=text]{
+    width:80px;
+    border:1px solid #555;
+}
+/**
+*基础环境配置
+**/
+/*配置页面样式*/
+.configPage{
+	width:700px;
+}
+.configurationTable{
+	width:90%;
+    margin:0px auto;
+}
+.modal-content>ol{
+    list-style: none;
+    margin:20px auto;
+    margin-bottom:0;
+    padding:0;
+    text-align: center;
+}
+.modal-content>ol>li{
+    line-height: 30px;
+}
+.modal-content>ol>li>label{
+	display:inline-block;
+	width:150px;
+	text-align:right;
+}
+.infoBox>img{
+    vertical-align: middle;
+    margin-right:20px;
+    margin-bottom:5px;
+}
+.infoBox>span{
+    font-size:17px;
+}
+.infoClose{
+    padding:5px 10px;
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+    background:#6CADED;
+    margin:0;
+    padding-right:10px;
+    text-align: right;
+}
+.infoClose>img{
+    cursor: pointer;
+}
+/* 错误页面*/
+.errorPage{
+    width:80%;
+    height:500px;
+    margin:0 auto;
+}
+.content_misspage{
+    width:60%;
+    height:36%;
+    margin:0 auto;
+    padding-top:140px;
+}
+.content_misspage img{
+    float:left;
+    margin-left:16px;
+}
+.content_misspage span{
+    font-size:18px;
+    color:#222;
+}
+.content_misspage_right input{
+    font-size:16px;
+    border-radius:20px;
+    height:30px;
+    width:100px;
+    background:#358ec6;
+    color:#fff;
+    border:0px;
+    margin-top:20px;
+    margin-left:80px;
+}
+.content_misspage_right{
+    width:316px;
+    height:100px;
+    float:left;
+    margin-top:60px;
+}
+.content_systemerror{
+    width:40%;
+    height:30%;
+    margin:0 auto;
+    padding-top:180px;
+}
+.content_systemerror img{
+    float:left;
+    margin-right:30px;
+    margin-left:30px;
+}
+.content_systemerror span{
+    font-size:18px;
+    line-height:80px;
+}
+/*用户特征查询*/
+#allPhoto{
+    position:fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(220,220,220, .7);
+    height:100%;
+    z-index: 10;
+}
+#allPhoto>div>div.photoDialog{
+    width: 25%;
+    height:300px;
+    background: #fff;
+    box-sizing: border-box;
+    border:2px solid #6CADED;
+    border-radius: 10px;
+}
+#allPhoto>div>div.photoDialog>img{
+    width:286px;
+    height:296px;
+    border-radius: 10px;
+    vertical-align: middle;
+    margin-left:0;
+}
+#allPhoto>div>div>div{
+    height:104px;
+    overflow: auto;
+    margin-bottom:10px;
+    border-bottom:1px solid #348ECA;
+    position:relative;
+}
+#allPhoto label{
+    position:fixed;
+    top:0;
+    left:0;
+    font-size:18px;
+}
+#allPhoto .face label{
+    top:60px;
+    left:20px;
+}
+#allPhoto .fingerprint label{
+    top:180px;
+    left:20px;
+}
+#allPhoto .iris label{
+    top:290px;
+    left:20px;
+}
+#allPhoto>div>div{
+    width:65%;
+    float:left;
+}
+#allPhoto>div>div:first-child{
+    margin:20px;
+    margin-left:40px;
+}
+#allPhoto>div>div:last-child{
+    margin-top:35px;
+}
+#allPhoto img{
+    width:100px;
+    height:100px;
+    cursor: pointer;
+    margin-left:10px;
+}
+#allPhoto>p{
+    text-align: right;
+    margin:0;
+    padding:5px;
+    padding-right:10px;
+}
+#allPhoto>p>i{
+    display: inline-block;
+    width:14px;
+    height:14px;
+    background: url("../image/tagHover.png");
+    background-size: cover;
+    cursor:pointer;
+}
+/*配置算法列表样式*/
+.clientAdd>div:first-child>p{
+    line-height: 35px;
+}
+.clientModify{
+    margin:20px 57px;
+}
+.clientAdd{
+    margin:20px 40px;
+}
+.channelScene>div>div{
+    width:195px;
+    height:100px;
+    border:1px solid #1FBDDD;
+    background:rgba(240,240,240,.5);
+}
+.channelScene>div>div ul>li{
+    width:165px;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+    padding-left:10px;
+    line-height: 20px;
+}
+.channelScene>div>div ul>li>a{
+    display: inline-block;
+    width:100%;
+}
+.clientAdd>div:first-child>p>span{
+    display: inline-block;
+    width:100px;
+    text-align: right;
+}
+.channelChecked{
+    background: #1FBDDD;
+    color:#fff;
+}
+#channelUl_modify>li>a,#sceneUl_modify>li>a{
+    cursor: default;
+}
+/*多页签显示*/
+.topTags{
+    height:31px;
+    padding-top:4px;
+    /*border-bottom:1px solid #000;*/
+    box-sizing: border-box;
+    background:#61B8EB;
+}
+.topTags>img{
+    cursor: pointer;
+    vertical-align: middle;
+    margin-top:3px;
+    margin-right:10px;
+}
+.topTags>ul>li{
+    float:left;
+    margin-left:1px;
+    position: relative;
+}
+.topTags>ul>li>a{
+    font-size:14px;
+    display: inline-block;
+    width:100px;
+    height:27px;
+    padding:5px;
+    background:#61B8EB;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+    box-sizing: border-box;
+    position: relative;
+    padding-right:25px;
+    color:#fff;
+}
+.topTags>ul>li>a>i{
+    display: inline-block;
+    width:10px;
+    height:10px;
+    background: url("../image/tag.png");
+    background-size: cover;
+    margin-left:8px;
+    position: absolute;
+    top:10px;
+    right:8px;
+}
+.topTags>ul>li>a>i:hover{
+    background: url("../image/tagHover.png");
+    background-size: cover;
+}
+.topTags>ul>li>a.tagChecked{
+    width:auto;
+    background:#FAFAFA;
+    /*border:1px solid #000;*/
+    border-bottom:0;
+    color:#000;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height:30px;
+}
+.modal-dialog>.modal-content>p.confirmInfo>img{
+    width:30px;
+    height:30px;
+}
+.modal-dialog>.modal-content>p.confirmInfo{
+    font-size:14px;
+    margin-top:20px;
+}
+
+/*用户特征注册*/
+.faceBaseMsgRegister>ul>li h4{
+    margin:0;
+    margin-top:5px;
+}
+.faceBaseMsgRegister>ul>li label{
+    display:inline-block;
+    width:170px;
+    text-align: right;
+}
+.faceBaseMsgRegister>ul>li{
+    line-height: 30px;
+}
+.faceBaseMsgRegister>ul>li a{
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    background: #d3effb;
+    color: #222;
+    border: 1px solid #8fb9d1;
+    font-size: 13px;
+    text-align: center;
+    line-height: 15px;
+}
+.scenePhoto{
+    margin-bottom:10px;
+    margin-top:3px;
+}
+.scenePhoto>div>img{
+    width:200px;
+    height:160px;
+    border:1px dashed;
+    display:inline-block;
+}
+.scenePhoto>div,#contrastivePhoto,#yangben,#duibi{
+	 position: relative;
+}
+.scenePhoto>div>em>a{
+	position: absolute;
+    top:61px;
+    left:60px;
+    display: inline-block;
+    width:34px;
+    height:29px;
+    background: url("../image/paizhao1.png");
+}
+.scenePhoto>div>em>a:last-child{
+    left:120px;
+    background: url("../image/shangchuan1.png");
+    background-size: cover;
+}
+.scenePhoto>div>span,#contrastivePhoto>span,#yangben>span,#duibi>span{
+    position: absolute;
+    right:-50px;
+    bottom:0px;
+}
+.delPic{
+	display:inline-block;
+	width:14px;
+	height:14px;
+    padding-top:1px;
+    padding-left: 18px;
+    background:url("../image/delButton.png") left center no-repeat;
+}
+.idCardRead{
+	display:inline-block;
+    width:38px;
+    height:27px;
+	background:url("../image/idCard.png");
+    background-size: cover;
+    margin-bottom:-7px;
+}
+#registerPhotos>div{
+    text-align: center;
+    width:50%;
+}
+#registerPhotos>div>img{
+    width:120px;
+    height:150px;
+    border:1px dashed;
+    display:inline-block;
+}
+.takePhotoPageIE>div>div>ul{
+	width:320px;
+    height:240px;
+}
+/*算法评测：基础坏境配置*/
+.basicEnvConfig{
+    margin-top:3px;
+}
+.basicEnvConfig>ul>li{
+    float:left;
+    height:445px;
+    margin-left:20px;
+    border:1px solid #348FC6;
+    padding:0 30px;
+    border-radius: 5px;
+}
+.basicEnvConfigContent>ul>li h4{
+    margin:0;
+    margin-top:5px;
+}
+.basicEnvConfigContent>ul>li>input[type=text]{
+    width:155px;
+}
+/*算法评测*/
+.basicEnvConfigContent>ul>li select{
+    width:155px;
+    height:22px;
+}
+.basicEnvConfigContent>ul>li textarea{
+    width:149px;
+}
+.basicEnvConfigContent>ul>li label{
+    display:inline-block;
+    width:110px;
+    text-align: right;
+}
+.testEnvConfig li{
+    line-height: 30px;
+}
+.testEnvConfig input[type=text]{
+    width:155px;
+}
+.basicEnvConfigContent>ul>li a{
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    background: #d3effb;
+    color: #222;
+    border: 1px solid #8fb9d1;
+    font-size: 13px;
+    text-align: center;
+    line-height: 15px;
+}
+#testTools{
+    padding:0;
+    list-style-type: none;
+}
+#testTools>li{
+    float:left;
+}
+/*基础信息预览*/
+.basicEnvConfigContent>ul>li{
+    line-height: 30px;
+}
+.basicInforPage{
+    width:1100px;
+}
+.basicInformation{
+    width:95%;
+    margin:0 auto;
+}
+.basicInformation>div{
+    width:46%;
+    height:400px;
+    border:1px solid #6BCFF4;
+    padding:10px;
+    margin-left:10px;
+    margin-bottom:10px;
+    position: relative;
+}
+.basicInformation>div>div{
+    height:400px;
+}
+.basicInformation>div>span{
+    position:absolute;
+    top:-10px;
+    left:20px;
+    background:#fff;
+    padding:0 5px;
+    color:#1FBDDD;
+}
+.basicInformation>div h5{
+    margin:5px 0;
+}
+.basicInformation>div:last-child>ul>li{
+    line-height: 30px;
+}
+/*测试结果预览*/
+.testImgs{
+    width:300px;
+    height:300px;
+    margin-bottom:20px;
+    overflow: hidden;
+    position: relative;
+    margin:0 auto;
+}
+.testResultPage{
+    width:400px;
+    /*margin:80px auto;*/
+    padding-bottom:10px;
+}
+#testReportLists{
+    position: absolute;
+    left:0;
+    height:300px;
+}
+#testReportLists>li{
+    float:left;
+}
+.basicEnvConfig ol{
+    padding:0;
+}
+.editTestInformation ol{
+    list-style-type: none;
+}
+.testEnvConfig select{
+    width:155px;
+    height: 24px;
+}
+.testEnvConfig strong{
+    display: inline-block;
+    width:130px;
+    text-align: right;
+    font-weight: normal;
+}
+/*测试环境配置*/
+.testEnvironmentConfig{
+    position: relative;
+}
+.testEnvironmentConfig>div{
+    border:1px solid #1FBDDD;
+    width:47%;
+    height:469px;
+    position: relative;
+    margin-top:10px;
+    padding:10px;
+    box-sizing: border-box;
+    border-bottom:0;
+    border-left:0;
+    padding-right:0px;
+    padding-left:0px;
+}
+.testEnvironmentConfig>div.testEnvConfig{
+    width:53%;
+    position: relative;
+    border-left:0;
+    border-right:0;
+}
+.testEnvironmentConfig>div>span{
+    color:#1FBDDD;
+    position: absolute;
+    top:-10px;
+    left:20px;
+    background:#FAFAFA;
+    padding:0 5px;
+}
+.testEnvironmentConfig ol{
+    list-style-type: none;
+    padding:0;
+    margin:3px 0;
+}
+.testEnvironmentConfig ol>li>input[type="checkbox"]{
+    vertical-align: middle;
+}
+#testDocument{
+    width:250px;
+    padding:0;
+    list-style-position: inside;
+}
+.modal-content>p>input.prevImg{
+    background:#aaa;
+    cursor: default;
+}
+/*上传文件*/
+.fileList td,.fileList{
+    border:0;
+    margin:0px;
+}
+.testEnvConfig>p{
+    position: fixed;
+    bottom:20px;
+    right:60px;
+}
+.testEnvConfig>p>input{
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding:0 6px;
+    color: #1E88C7;
+    line-height: 20px;
+    cursor: pointer;
+}
+.uploadFile{
+    height:190px;
+}
+#IJnlAPI{
+   position: absolute;
+}
+/*
+测试环境预览编辑下面的删除input
+ */
+.input_del{
+    border: 0;
+    background: #6CADED;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    vertical-align:top;
+}
+/*
+编辑页面上传按钮
+ */
+.input_upload{
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: #d3effb;
+    color:#1E88C7;
+    cursor: pointer;
+    border: 1px solid #8fb9d1;
+    font-size: 12px;
+    line-height: 20px;
+}
+/*基础环境配置样式修改*/
+.basicEnvConfigNav{
+    margin-top:10px;
+    margin-bottom:90px;
+}
+.basicEnvConfigNav>ul>li{
+    float:left;
+    width:100px;
+    text-align: center;
+}
+.basicEnvConfigNav>ul>li:first-child>a{
+    color:#1168A7;
+}
+.basicEnvConfigNav>ul>li>a:hover{
+    color:#1168A7;
+}
+.basicEnvConfigContent>ul{
+    display:none;
+    width:40%;
+    margin: 0 auto;
+}
+.basicEnvConfigContent>ul.block{
+    display:block;
+}
+#ServerConfigurationArea>li{
+    float:left;
+}
+.basicEnvParameterContent ul{
+    display: none;
+    margin-left:15px;
+}
+.basicEnvParameterContent ul li{
+    display: block;
+   line-height: 30px;
+}
+.basicEnvParameterContent ul.block{
+    display:block;
+}
+.basicEnvParameterNav{
+    margin-bottom:20px;
+    margin-left:0;
+}
+.basicEnvParameterContent>div {
+    height: 400px;
+    overflow: auto;
+}
+.basicEnvParam ol li{
+    line-height: 30px;
+}
+.PullDownStrip{
+    height:200px;
+    overflow: auto;
+    margin-bottom:20px;
+}
+.PullDownStrip .mCSB_inside > .mCSB_container{
+    margin-right: 0px;
+}
+.PullDownStrip .mCSB_inside > .mCSB_scrollTools{
+    margin-right:10px;
+}
+.configNavList{
+    width:505px;
+}
+.lineNav{
+    width:505px;
+    border-top:1px dotted #e5e2e1;
+    margin-top:10px;
+    position: relative;
+}
+.lineNav>ul{
+    position: absolute;
+    top:-10px;
+    left:0;
+}
+.lineNav>ul>li{
+    float:left;
+    width:100px;
+    text-align:center;
+}
+.lineNav>ul>li>i{
+    display: inline-block;
+    width: 10px;
+    height:10px;
+    border-radius: 5px;
+    background: url("../image/dian.png");
+    cursor: pointer;
+}
+/*.lineNav>ul>li:first-child>i{
+    width: 12px;
+    height:12px;
+    border-radius: 6px;
+    background: url("../image/dian-select.png");
+}*/
+.lineNav>ul>li>i.lineNavChecked{
+    width: 12px;
+    height:12px;
+    border-radius: 6px;
+    background: url("../image/dian-select.png");
+}
+.basicEnvParameterContent .mCSB_inside{
+    margin-right:10px;
+}
+.basicEnvConfigNavLine{
+    border-top:1px solid #1FBDDD;
+    padding-top:20px;
+}
+/*上传图片*/
+.file,.fileSeach,.fileUpload,.testFile{
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 1px 6px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+    top: 6px;
+    font-size:12px;
+    cursor: pointer;
+}
+.file input {
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.fileSeach:hover,.fileUpload:hover{
+    cursor: pointer;
+}
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
+#if_exit_img,#if_exit_text{
+    height:24px;
+    width:140px;
+}
+#reportPics>li>label,#testDocuments>li>label{
+    display: inline-block;
+    width:215px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+/*设置权限*/
+#permissionTable tbody tr td{
+    text-align: left;
+    font-weight: normal;
+}
+#permissionTable tbody tr td input[type=checkbox]{
+    margin-right:5px;
+    vertical-align: text-bottom;
+}
+#permissionTable tbody tr td label{
+    display: inline-block;
+    width:200px;
+    text-align: right;
+}
+/*系统日志管理*/
+#systemLogTable>tbody>tr>td:nth-child(5){
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+#assignRolesArea{
+    width:94%;
+    margin:0 auto;
+}
+#assignRolesArea>div>select{
+    margin:14px 22px;
+    height:146px;
+    border-color:#BFD5F3;
+}
+#assignRolesArea>div>select>option{
+    line-height: 20px;
+}
+.channelScene>div>p{
+    margin:5px 0;
+}
+.removeBtn>button{
+    text-align: center;
+    background: #CCE6F7;
+    border: 1px solid #BFD5F3;
+    border-radius: 3px;
+}
+.clientDialog{
+    width:500px;
+}
+.selectDiv{
+    width:200px;
+    height:200px;
+    border-radius: 5px;
+    border:1px solid #BFD5F3;
+    overflow: hidden;
+}
+.selectDiv>p{
+    background:#CCE6F7;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding:3px 10px;
+    border-bottom:1px solid #BFD5F3;
+}
+#rolePojoReleaseList>li,#rolePojoSelectList>li{
+    line-height: 30px;
+}
+#rolePojoReleaseList>li>input,#rolePojoSelectList>li>input{
+    vertical-align:middle;
+    margin-right:3px;
+}
+/*特征库管理：人脸特征1:1认证*/
+#platformUserCertificate,#collectCertificate,.faceFeatureRegister,
+.faceFeatureSupplements,.vocalPrintFeatureRegister{
+    width:98%;
+    margin:10px auto;
+}
+.faceFeatureSupplements{
+    margin-top:20px;
+}
+#collectCertificate{
+    margin-top:20px;
+}
+
+.faceFeatureRegister>div{
+    width:49.5%;
+}
+.faceFeatureRegister>div:last-child{
+    width:50%;
+    margin-left:0.5%;
+    padding-left:0;
+    padding-right:0;
+    height:400px;
+}
+.userSource{
+    margin:10px 0;
+}
+.userSource>a:first-child{
+    margin-right:10px;
+}
+.userSource>a{
+    padding:3px 10px;
+    background: #169BD5;
+    color:#fff;
+    border-radius: 5px;
+    font-size:13px;
+}
+.UserCertificateOne>div{
+    width:50%;
+}
+.UserCertificateOne>div:last-child{
+    width:49.5%;
+    margin-left:0.5%;
+}
+#userSelect>div{
+    font-size:14px;
+    margin-top:10px;
+}
+#userSelect>div>span{
+    display: inline-block;
+    width:80px;
+    text-align: right;
+}
+#userSelect>div>input{
+    background: #ddd;
+}
+#userFacePhoto>li{
+    float:left;
+    width:80px;
+    text-align: center;
+}
+#userFacePhoto>li>img{
+    display: inline-block;
+    width:50px;
+    height:50px;
+    border:1px dotted #ccc;
+    cursor: pointer;
+}
+.sampleSelect{
+    font-size:12px;
+    margin-left:30px;
+}
+.sampleSelect>p{
+    margin-bottom:5px;
+}
+.photoCertificate{
+    width:495px;
+    margin:5px auto;
+    font-size:14px;
+}
+.photoCertificate>div:first-child{
+    margin-right:90px;
+}
+.photoCertificate>div>div{
+    margin-top:5px;
+}
+.photoCertificate>div>div>img{
+    width:200px;
+    height:150px;
+    border: 1px dotted #000;
+    display: inline-block;
+}
+.certificate{
+    text-align: center;
+    margin-top:10px;
+}
+.certificate>input{
+    background: #169BD5;
+    border: 0;
+    color:#fff;
+    width:100px;
+    height:30px;
+    font-size:16px;
+    cursor: pointer;
+}
+.certificateResult{
+    margin-top:10px;
+}
+.certificateResult>thead>tr{
+    line-height:30px;
+}
+.certificateResult>tbody>tr{
+    line-height:28px;
+}
+.contrastive>div{
+    position: relative;
+}
+.contrastive>div>em>a{
+    position: absolute;
+    top:61px;
+    left:60px;
+    display: inline-block;
+    width:34px;
+    height:29px;
+    background: url("../image/paizhao.png");
+}
+.contrastive>div>em>a:nth-child(2){
+    overflow: hidden;
+    left:120px;
+    background: url("../image/shangchuan.png");
+    background-size: cover;
+}
+.userTable{
+    width:700px;
+}
+.navigationDialog{
+   bottom:-10px;
+    right:6px;
+}
+/*特征库查询*/
+.featureOption{
+    width:740px;
+}
+#userAllInfor>div:first-child{
+    width:40%;
+}
+#userAllInfor>div{
+    width:60%;
+}
+#userAllInfor>div>p,#certificateInfor>div>p{
+    border-left:4px solid #FF9900;
+    padding-left:5px;
+    margin-bottom:10px;
+}
+#userAllInfor>div:first-child>p{
+    margin-left:10px;
+}
+#featureInformation>div>ul{
+    display: inline-block;
+    margin:0 10px;
+}
+/*#featureInformation>div>em{
+    display: inline-block;
+    width:29px;
+    height:50px;
+    margin-bottom:20px;
+    background: url("../resources/template/platformUserFeature/featureQuery/js/leftImg.png");
+}
+#featureInformation>div>em:last-child{
+    background: url("../image/rightImg.png");
+}*/
+#featureInformation>div{
+    position: relative;
+}
+#featureInformation>div>span{
+    position: absolute;
+    top:0px;
+    left:20px;
+}
+#featureInformation>div>div{
+    width:300px;
+    position: relative;
+    margin-left:60px;
+}
+#featureInformation>div>div>img:first-child{
+    position: absolute;
+    top:30px;
+    left:-40px;
+}
+#featureInformation>div>div>img:last-child{
+    position: absolute;
+    top:30px;
+    right:-70px;
+}
+#certificatePhotoArea{
+    width:510px;
+    margin:0 auto;
+}
+#certificatePhotoArea>div:first-child{
+    margin-right:100px;
+}
+#certificatePhotoArea>div>img{
+    width:200px;
+    height:200px;
+    border:1px dotted #ddd;
+}
+#certificateInfor{
+    width:95%;
+    margin:0 auto;
+}
+#certificateInfor>div>div>span{
+    margin-left:20px;
+}
+#certificateInfor>div {
+    margin-bottom: 10px;
+}
+.certificateTable{
+    height:100px;
+    overflow: auto;
+}
+.collectTable{
+    height:220px;
+    overflow: auto;
+}
+.leftRight{
+    position: relative;
+}
+.leftRight>img:first-child{
+    position: absolute;
+    top:3px;
+    left:2px;
+    width: 28px;
+    height: 46px;
+}
+.leftRight>img:last-child{
+    position: absolute;
+    top:3px;
+    right:3px;
+    width: 28px;
+    height: 46px;
+}
+#userPapers,#serach_IdCard,#IdCard{
+    width:155px;
+}
+.faceFeatureMsgRegister{
+    border-left:1px solid #ACACAC;
+}
+#registerPhotos{
+    border-top: 1px solid #ACACAC;
+    padding-top:13px;
+    height:190px;
+    box-sizing: border-box;
+}
+#face>li>p{
+    text-align: center;
+}
+#face>li,#venaDigitalis>li{
+    width: 110px;
+    text-align: center;
+}
+#face>li>p{
+    margin-top:-15px;
+}
+#faceFeature{
+    margin-bottom:10px;
+}
+#faceBaseMsgRegisterArea>li>input{
+    width:218px;
+}
+#faceBaseMsgRegisterArea>li>select{
+    width:218px;
+    height:26px;
+}
+#faceBaseMsgRegisterArea>li>.datep{
+    width:100px;
+}
+#faceBaseMsgRegisterArea>li>textarea{
+    width:212px;
+}
+/*人脸补录*/
+.faceBaseMsgRegister>.supplementUl>li,#featureSupplements>ul>li{
+    margin-left:15px;
+}
+.faceBaseMsgRegister>.supplementUl>li>label{
+    width:auto;
+}
+#registerPhotos1{
+    width:550px;
+    margin:0 auto;
+    margin-top:30px;
+}
+#registerPhotos1>div{
+    margin-left:50px;
+}
+#registerPhotos1>div:first-child{
+    margin-left:0px;
+}
+#registerPhotos1>div>img{
+    display: inline-block;
+    border:1px dotted #ACACAC;
+    width:120px;
+    height:150px;
+}
+#registerPhotos1>div>p{
+    text-align: center;
+}
+#registerPhotos1>div>div>img{
+    display: inline-block;
+    border:1px dotted #ACACAC;
+    width:200px;
+    height:150px;
+}
+/*指静脉注册*/
+.fingerUl>li{
+    float:left;
+    position: relative;
+    width:150px;
+    text-align: center;
+}
+.fingerUl>li>em{
+    position: absolute;
+}
+.fingerUl>li>img{
+    display: inline-block;
+    width:120px;
+    height:150px;
+    border:1px dotted #ACACAC;
+}
+.fingerUl>li>em>a{
+    position: absolute;
+    top:61px;
+    left:-100px;
+    display: inline-block;
+    width:34px;
+    height:29px;
+    background: url("../image/finger.png") no-repeat;
+    background-size:cover;
+}
+.fingerUl>li>em>a:last-child{
+    left:-60px;
+    background: url("../image/shangchuan.png");
+    background-size: cover;
+}
+.fingerVeinsInfo{
+    width:450px;
+    margin:10px auto;
+}
+#featureSupplements ul.faceSupplementsList>li{
+    width:90px;
+}
+#featureSupplements ul.faceSupplementsList>li>p>input{
+    vertical-align: middle;
+}
+#userFacePic>li{
+    float:left;
+    width:100px;
+    text-align: center;
+}
+#userFacePic>li>img {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 1px dotted #ACACAC;
+}
+#userFacePic>li>p>input{
+    vertical-align: middle;
+}
+#userFacePic>li>p{
+    font-size:12px;
+}
+/*人脸特征删除*/
+#userFacePhotos>li{
+    float: left;
+    width:150px;
+    text-align: center;
+}
+#userFacePhotos>li>img{
+    display: inline-block;
+    width:120px;
+    height:150px;
+    border:1px dotted #ACACAC;
+}
+#userFacePhotos>li>p{
+    text-align: center;
+}
+/*声纹特征注册*/
+.vocalPrintBaseMsg>ul>li{
+    line-height: 35px;
+}
+.vocalPrintBaseMsg>ul>li>label{
+    display: inline-block;
+    width:120px;
+    text-align: right;
+}
+#vocalPrintFeatureMsg{
+    width:90%;
+    margin: 0 auto;
+}
+#initVocalPrintNumber{
+    width:100%;
+    border:1px solid #9B9B9B;
+    font-weight: bold;
+    font-size:18px;
+    line-height: 35px;
+    border-radius: 5px;
+}
+#vocalPrintNumber{
+    margin:40px auto;
+}
+#vocalPrintNumber>li{
+    float:left;
+    width:20%;
+    text-align: center;
+    font-size:30px;
+    color:#999999;
+}
+#vocalPrintNumber>li:first-child{
+    color:#0000FF;
+}
+.vpNums{
+    visibility: hidden;
+}

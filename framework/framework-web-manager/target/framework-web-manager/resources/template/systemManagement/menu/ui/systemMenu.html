@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+        <link type="text/css" rel="stylesheet" href="resources/common/css/common.css"/>
+        <link rel="stylesheet" href="resources/common/css/index.css"/>
+        <link rel="stylesheet" href="resources/common/css/jquery.mCustomScrollbar.css"/>
+        <link rel="stylesheet" href="resources/common/css/jquery.layer.css">
+        <script type="text/javascript" src="resources/common/js/jquery/jquery-1.8.3.min.js"></script>
+        <script src="resources/common/js/jquery/jquery.mousewheel.min.js"></script>
+        <script src="resources/common/js/jquery/jquery.mCustomScrollbar.min.js"></script>
+        <script type="text/javascript" src="resources/common/js/initialize.js"></script>
+        <script type="text/javascript" src="resources/common/js/common.js"></script>
+        <script type="text/javascript" src="resources/common/js/dataLink.js"></script>
+        <script type="text/javascript" src="resources/common/js/pagination/pagination.js"></script>
+        <script type="text/javascript" src="resources/common/js/utils/utils.js"></script>
+        <script src="resources/common/js/layer/jquery.layer.js"></script>
+        <script src="resources/common/js/validate/checkInputJs.js"></script>
+        <script type="text/javascript" src="resources/template/systemManagement/menu/js/systemMenu.js"></script>
+        <script type="text/javascript" src="resources/template/systemManagement/menu/js/systemMenuTemplate.js"></script>
+    </head>
+    <body>
+        <div id="operation" class="removeFloatEffect">
+             <div class="operation_left">
+                 <a id="add" class="commonButton"><span>新增</span></a>
+                 <a id="edit" class="commonButton"><span>编辑</span></a>
+                 <a id="del" class="commonButton"><span>删除</span></a>
+                 <a id="refresh" class="commonButton"><span>刷新</span></a>
+             </div>
+             <div class="search rt">
+                <span>菜单名称：</span><input type="text" id="menuName" query-value="" maxlength="40"/>
+                <a id="search" class="commonButton"><span>查询</span></a>
+                <a id="reset" class="commonButton"><span>重置</span></a>
+            </div>
+        </div>
+        <!-- 页面主体 -->
+        <div class="content_main">
+            <!-- 表头 -->
+            <table cellpadding="0" cellspacing="1">
+                <!-- 列数及宽度设置 -->
+                <colgroup>
+                    <col width="4%">
+                    <col width="6%">
+                    <col width="30%">
+                    <col width="30%">
+                    <col width="15%">
+                    <col width="15%">
+                </colgroup>
+                <!-- 列名设置 -->
+                <thead>
+                    <tr>
+                        <th width="4%"><input type="checkbox" class="checkAll"></th>
+                        <th width="6%">序号</th>
+                        <th width="30%">菜单名称</th>
+                        <th width="30%">菜单路径</th>
+                        <th width="15%">菜单权限</th>
+                        <th width="15%">父菜单</th>
+                    </tr>
+                </thead>
+            </table>
+            <!-- 表体 -->
+            <div class="table_body tableContent">
+                <!-- 列数及宽度设置 -->
+                <table id="systemMenuTable" cellpadding="0" cellspacing="1">
+                    <colgroup>
+                        <col width="4%">
+	                    <col width="6%">
+	                    <col width="30%">
+	                    <col width="30%">
+	                    <col width="15%">
+	                    <col width="15%">
+                    </colgroup>
+                    <!-- 数据 -->
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 页码 -->
+            <div class="navigation">
+                <div class="navigation_left">
+                    共<label id="totalNum">0</label>条数据, 第<span id="currentPage">1</span>页/共[<label id="totalPage">0</label>]页<input id="pageSize" style="display:none">
+                </div>
+                <div class="navigation_right">
+                            <input type="button" value="首页" id="first" />
+                            <input type="button" value="上一页" id="previous" />
+                            <input type="button" value="下一页" id="next" />
+                            <input type="button" value="尾页" id="last" />
+                     转到
+                    <input type="text" id="jumpNo" class="turn">
+                     页
+                    <input type="button" id="jumpPageButton" value="跳转" />
+                </div> 
+            </div>
+        </div>
+        
+        <!-- 新增页面 -->
+        <div id="addPage" class="hiddenClass">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h4 class="movePart">新增菜单</h4>
+                    <ul id="addArea">
+                        <li>
+                            <span><b>*</b>菜单名称：</span><input id="authorityName_add" dataType="Chinese" msg="请输入中文格式的菜单名称" type="text" maxlength="10"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li> 
+                        <li>
+                            <span><b>*</b>菜单路径：</span><input id="url_add" type="text" dataType="LetterAndUnderline" msg="请输入菜单路径，可以包含字母和下划线" maxlength="40"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                        <li>
+                            <span><b>*</b>菜单权限：</span><select id="level_add" dataType="Require" msg="请选择菜单级别">
+                                                                        <option value="0">特殊</option>
+                                                                        <option value="1">一般</option>
+                                                             </select>
+                        </li>
+                        <li>
+                            <span><b>*</b>父&nbsp; 菜&nbsp;单：</span><select id="pid_add" dataType="Require" msg="请选择父菜单"></select>
+                        </li>
+                    </ul>
+                    <p class="serviceButton"><input type="button" id="model_add" value="添加"><input type="button" class="cancel" value="取消"></p>
+                </div>
+            </div>
+        </div>
+        <!-- 修改页面 -->
+        <div id="editPage" class="hiddenClass">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h4 class="movePart">修改菜单</h4>
+                    <ul id="editArea">
+                        <li class="hiddenClass">
+                            <span>主键：</span><input id="configId_modify" type="text">
+                        </li>
+                        <li>
+                            <span><b>*</b>菜单名称：</span><input id="authorityName_modify" dataType="Chinese" msg="请输入中文格式的菜单名称" type="text" maxlength="8"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li> 
+                        <li>
+                            <span><b>*</b>菜单路径：</span><input id="url_modify" type="text" disabled/>
+                        </li>
+                        <li>
+                            <span><b>*</b>父&nbsp; 菜&nbsp;单：</span><select id="pid_modify" dataType="Require" msg="请选择父菜单"></select>
+                        </li>
+                    </ul>
+                    <p class="serviceButton"><input type="button" id="model_modify" value="修改"><input type="button" class="cancel" value="取消"></p>
+                </div>
+            </div>
+        </div>
+        <!-- 删除页面 -->
+        <!--删除和重置用的id-->
+        <div class="hiddenClass">
+            <input type="text" id="deleteId">
+        </div>
+        <!-- 执行按钮 -->
+        <div id="executePage" class="hiddenClass">
+            <input id="refreshAll" />
+        </div>
+        <!-- 提示信息 -->
+        <div class="promptInfor" style="display: none"></div>
+    </body>
+</html>

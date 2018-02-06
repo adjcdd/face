@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.framework.manager.mapper.EmployeeMapper">
+
+    <resultMap id="employeeMap" type="employeePojo">
+        <id property="id"                   column="id"/>
+        <result property="uid"            column="uid"/>
+        <result property="name"            column="name"/>
+        <result property="sex"             column="sex"/>
+        <result property="createTime"     column="createTime"/>
+        <result property="telphone"       column="telphone"/>
+        <result property="ctfNo"           column="ctfNo"/>
+        <result property="email"           column="email"/>
+        <result property="image"           column="image"/>
+        <result property="dept"            column="dept"/>
+    </resultMap>
+
+
+    <select id="getEmployeeList" resultMap="employeeMap">
+        SELECT
+              id,uid,name,sex,createTime,telphone,ctfNo,email,image,dept
+        FROM
+              grg_employee
+        WHERE
+        1=1
+
+        <include refid="employeeListCondition"/>
+         ORDER BY
+                id desc
+                LIMIT #{currentCount},#{pageSize}
+    </select>
+    <select id="getEmployeeCount" resultType="java.lang.Long">
+        SELECT
+        COUNT(ID)
+        FROM
+        grg_employee
+        WHERE
+        1=1
+        <include refid="employeeListCondition"/>
+    </select>
+
+    <sql id="employeeListCondition">
+        <if test="null!=name and '' != name">
+            AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="null!=ctfNo and '' != ctfNo">
+            AND ctfNo LIKE CONCAT('%',#{ctfNo},'%')
+        </if>
+        <if test="null!=uid and '' != uid">
+            AND uid LIKE CONCAT('%',#{uid},'%')
+        </if>
+        <if test="null!=dept and '' != dept">
+            AND dept LIKE CONCAT('%',#{dept},'%')
+        </if>
+    </sql>
+    <select id="getEmployeeInfo" resultMap="employeeMap">
+        SELECT
+               id,uid,name,sex,createTime,telphone,ctfNo,email,image,dept
+        FROM
+             grg_employee
+        WHERE
+             uid=#{uid}
+    </select>
+
+    <select id="getEmployeeInfoByName" resultMap="employeeMap">
+        SELECT
+        id,uid,name,sex,createTime,telphone,ctfNo,email,image,dept
+        FROM
+        grg_employee
+        WHERE
+        name=#{name}
+    </select>
+    <delete id="deleteEmployee" >
+        DELETE
+        FROM
+        grg_employee
+        WHERE
+        uid = #{uid}
+    </delete>
+    <!-- <select id="getEmployeeInfoList" resultMap="employeeMap">
+        SELECT
+        id,uid,name,sex,createTime,telphone,ctfNo,email,image,dept
+        FROM
+        grg_employee
+        WHERE
+         1=1
+        <if test="null!=name and '' != name">
+            and name=#{name}
+        </if>
+        <if test="null!=ctfNo and '' != ctfNo">
+            and ctfNo=#{ctfNo}
+        </if>
+        <if test="null!=uid and '' != uid">
+            and uid=#{uid}
+        </if>
+        <if test="null!=dept and '' != dept">
+            and dept=#{dept}
+        </if>
+    </select>-->
+    <insert id = "addEmployee" parameterType ="EmployeePojo">
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    INSERT INTO grg_employee (
+        uid,
+        name,
+        sex,
+        createTime,
+        telphone,
+        ctfNo,
+        email,
+        image,
+        dept
+    )
+    VALUES
+    (
+        #{uid},
+        #{name},
+        #{sex},
+        #{createTime},
+        #{telphone},
+        #{ctfNo},
+        #{email},
+        #{image},
+        #{dept}
+    )
+    </insert>
+    <update id="updateEmployee" parameterType="EmployeePojo">
+        UPDATE  grg_employee
+        <trim prefix="set" suffixOverrides=",">
+            <if test="dept!=null">
+                dept = #{dept},
+            </if>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="sex!=null">
+                sex = #{sex},
+            </if>
+            <if test="telphone!=null">
+                telphone = #{telphone},
+            </if>
+            <if test="ctfNo!=null">
+                ctfNo = #{ctfNo},
+            </if>
+            <if test="email!=null">
+                email = #{email},
+            </if>
+            <if test="image!=null">
+                image= #{image}
+            </if>
+        </trim>
+        WHERE uid=#{uid}
+    </update>
+</mapper>

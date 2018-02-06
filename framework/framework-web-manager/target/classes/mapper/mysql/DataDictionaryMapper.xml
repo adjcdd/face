@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.framework.manager.mapper.DataDictionaryMapper">
+    <cache/>
+
+    <resultMap id="dataDictionaryListJsonMap" type="DataDictionaryListJson" >
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+    </resultMap>
+
+    <resultMap id="dataDictionaryPojoMap" type="DataDictionaryPojo" >
+        <id column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+
+    <select id="getAllDataDictionary" resultMap="dataDictionaryListJsonMap">
+        SELECT
+          code,
+          name,
+          type
+        FROM
+        grg_data_dictionary
+        ORDER BY
+        id
+    </select>
+
+    <select id="getDataDictionaryList" resultMap="dataDictionaryPojoMap">
+        SELECT
+          id,
+          code,
+          name,
+          type,
+          description
+        FROM
+        grg_data_dictionary
+        WHERE
+        1=1
+        AND
+        TYPE &lt;&gt; 0
+        <include refid="getDataDictionaryListCondition"/>
+        ORDER BY type,id
+    </select>
+
+    <select id="getDataDictionaryListCount" resultType="java.lang.Long">
+        SELECT
+          COUNT(id)
+        FROM
+        grg_data_dictionary
+        WHERE
+        1=1
+        AND
+        TYPE &lt;&gt; 0
+        <include refid="getDataDictionaryListCondition"/>
+    </select>
+
+    <sql id="getDataDictionaryListCondition">
+        <if test="null != description and '' != description">
+            AND description LIKE CONCAT('%',#{description},'%')
+        </if>
+        <if test="null != type and 0!= type">
+            AND type = #{type}
+        </if>
+        <if test="null != name and '' != name">
+            AND name = #{name}
+        </if>
+        <if test="null != code and '' != code">
+            AND code = #{code}
+        </if>
+    </sql>
+
+    <insert id="addDataDictionary" flushCache="true">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO grg_data_dictionary (
+                  code,
+                  name,
+                  type,
+                  description
+                )
+                VALUES
+                  (
+                    #{code},
+                    #{name},
+                    #{type},
+                    #{description}
+                  )
+    </insert>
+
+    <select id="checkIsExist" useCache="false" resultType="java.lang.Integer">
+        SELECT
+          COUNT(id)
+        FROM
+          grg_data_dictionary
+        WHERE
+          type = #{type}
+          AND
+          code = #{code}
+    </select>
+
+    <delete id="deleteDataDictionary" flushCache="true">
+       DELETE
+        FROM
+          grg_data_dictionary
+        WHERE id = #{id};
+    </delete>
+
+    <update id="updateDataDictionary" flushCache="true">
+        UPDATE
+          grg_data_dictionary
+        SET
+            <if test="null != code and '' != code">
+              code = #{code},
+            </if>
+            <if test="null != name and '' != name">
+              name = #{name},
+            </if>
+            <if test="null != type and 0 != type">
+              type = #{type},
+            </if>
+            <if test="null != description and '' != description">
+              description = #{description}
+            </if>
+        WHERE id = #{id};
+    </update>
+
+    <select id="getDataDictionaryInfo" resultMap="dataDictionaryPojoMap">
+        SELECT
+          code,
+          name,
+          type,
+          description
+        FROM
+        grg_data_dictionary
+        WHERE id = #{id};
+    </select>
+
+</mapper>

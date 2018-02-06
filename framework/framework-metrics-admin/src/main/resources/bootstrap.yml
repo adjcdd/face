@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: biometrics-metrics-admin
+  http:
+    encoding: { charset: UTF-8, enable: true, force: true }
+info:
+  component: biometrics-rest
+  contact:
+    email: wyfei5@grgbanking.com
+    phone: 18710105371

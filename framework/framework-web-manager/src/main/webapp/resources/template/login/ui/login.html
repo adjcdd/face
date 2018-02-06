@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!--<link rel="icon" type="image/x-icon" href="resources/image/favicon.ico"/>-->
+
+    <!--<link rel="icon" href="resources/image/favicon.ico" mce_href="resources/image/favicon.ico" type="image/x-icon">-->
+    <link rel="shortcut icon" href="resources/common/image/favicon.ico" mce_href="resources/common/image/favicon.ico" type="image/x-icon">
+    <title></title>
+    <!--[if IE 8 ]>
+    <link rel="stylesheet" type="text/css" media="all" href="resources/common/css/ie8.css" />
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="resources/common/css/login.css"/>
+    <link type="text/css" rel="stylesheet" href="resources/common/css/common.css"/>
+    <link rel="stylesheet" href="resources/common/css/jquery.layer.css">
+    <script language="JavaScript">
+        if(window != top){
+            top.location.href = location.href;
+        }
+    </script>
+    <script type="text/javascript" src="resources/common/js/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="resources/common/js/common.js"></script>
+    <script src="resources/common/js/layer/jquery.layer.js"></script>
+    <script src="resources/common/js/validate/checkInputJs.js"></script>
+    <script type="text/javascript" src="resources/template/login/js/login.js"></script>
+</head>
+<body>
+<div id="main">
+    <div class="content">
+        <ul id="images" class="removeFloatEffect"></ul>
+    </div>
+    <div id="login">
+        <div class="logo removeFloatEffect">
+            <img src="resources/common/image/LOGO1.png" class="lf">
+            <h2 class="lf">生物特征统一认证平台</h2>
+        </div>
+        <div class="information">
+
+            <ul class="infor">
+                <li>
+                    <i></i><input placeholder="请输入您的账号" id="username" type="text" dataType="UnNumberLine" msg="请输入您的账号" maxlength="20">
+                </li>
+                <li>
+                    <i></i><input placeholder="请输入密码" id="password" type="password" dataType="Password" msg="请输入您的密码" maxlength="20">
+                </li>
+                <li class="removeFloatEffect">
+                    <i></i><input placeholder="请输入右方验证码" id="verifyCodeInput" maxlength="4">
+                    <div class="rt">
+                        <span><img alt="验证码" id="verifyCode" onclick="loginObj.loadVerifyCode();"/></span>
+                        <a onclick="loginObj.loadVerifyCode();" href="javascript:void(0)">看不清，换一个</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="remember removeFloatEffect">
+                <input class="check lf" type="checkbox" id="rememberMe" checked>
+                <span class="lf">记住账号</span>
+            </div>
+            <div class="but_login">
+                <button id="loginBtn">登录</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modalDialog" ></div>
+<!-- 验证码 -->
+<div id="verifyError" class="dragDialog"></div>
+</body>
+</html>

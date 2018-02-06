@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.framework.manager.mapper.RoleMapper">
+
+    <resultMap id="roleMap" type="RolePojo" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <collection property="authorityPojoList" ofType="AuthorityPojo">
+            <id column="authority_id" property="id"></id>
+            <id column="authority_level" property="authorityLevel"></id>
+        </collection>
+    </resultMap>
+
+    <select id="getRoleList" resultMap="roleMap">
+        SELECT
+          id,
+          role_name,
+          create_time,
+          update_time,
+          create_user,
+          update_user,
+          status
+        FROM
+          grgm_role
+        WHERE
+        id NOT IN (
+        SELECT
+        gro.id
+        FROM
+        grgm_role gro
+        INNER JOIN grgm_role_authority gra ON gra.role_id = gro.id
+        INNER JOIN grgm_authority gau ON gra.authority_id = gau.id
+        WHERE gau.authority_level = 0
+        )
+        <include refid="roleListCondition"/>
+        ORDER BY
+        id DESC
+        LIMIT #{currentCount},#{pageSize}
+    </select>
+
+    <select id="getRoleListByAdmin" resultMap="roleMap">
+        SELECT
+          id,
+          role_name,
+          create_time,
+          update_time,
+          create_user,
+          update_user,
+          status
+        FROM
+          grgm_role
+        WHERE
+          1=1
+        <include refid="roleListCondition"/>
+        ORDER BY
+        id DESC
+        LIMIT #{currentCount},#{pageSize}
+    </select>
+
+    <select id="getRoleCount" resultType="java.lang.Long">
+        SELECT
+        COUNT(id)
+        FROM
+        grgm_role
+        WHERE id NOT IN (
+        SELECT
+        gro.id
+        FROM
+        grgm_role gro
+        INNER JOIN grgm_role_authority gra ON gra.role_id = gro.id
+        INNER JOIN grgm_authority gau ON gra.authority_id = gau.id
+        WHERE gau.authority_level = 0
+        )
+        <include refid="roleListCondition"/>
+    </select>
+
+    <select id="getRoleCountByAdmin" resultType="java.lang.Long">
+        SELECT
+        COUNT(id)
+        FROM
+        grgm_role
+        WHERE
+        1=1
+        <include refid="roleListCondition"/>
+    </select>
+
+    <sql id="roleListCondition">
+        <if test="null != roleName and '' != roleName">
+            AND role_name LIKE CONCAT('%',#{roleName},'%')
+        </if>
+    </sql>
+
+    <select id="getAllRole" resultMap="roleMap">
+        SELECT
+        id,
+        role_name,
+        status
+        FROM
+        grgm_role
+        WHERE id NOT IN (
+        SELECT
+        gro.id
+        FROM
+        grgm_role gro
+        INNER JOIN grgm_role_authority gra ON gra.role_id = gro.id
+        INNER JOIN grgm_authority gau ON gra.authority_id = gau.id
+        WHERE gau.authority_level = 0
+        )
+          <!--AND status = 1 -->
+        <if test="null != roleName and '' != roleName">
+            AND role_name LIKE CONCAT('%',#{roleName},'%')
+        </if>
+    </select>
+
+    <select id="getAllRoleByAdmin" resultMap="roleMap">
+        SELECT
+          id,
+          role_name,
+          status
+        FROM
+          grgm_role
+        WHERE
+          1=1
+          <!--AND status = 1 -->
+        <if test="null != roleName and '' != roleName">
+            AND role_name LIKE CONCAT('%',#{roleName},'%')
+        </if>
+    </select>
+
+    <select id="getRoleInfo" resultMap="roleMap">
+        SELECT
+          gro.id,
+          role_name,
+          gro.create_time,
+          gro.update_time,
+          gro.create_user,
+          gro.update_user,
+          gro.status,
+          gau.id AS authority_id,
+          gau.authority_level
+        FROM
+          grgm_role gro
+        LEFT JOIN grgm_role_authority gra ON gra.role_id = gro.id
+        LEFT JOIN grgm_authority gau ON gra.authority_id = gau.id
+        WHERE
+          gro.id = #{id}
+    </select>
+
+    <select id="getRoleForEdit" resultMap="roleMap">
+        SELECT
+          id,
+          role_name,
+          create_time,
+          update_time,
+          create_user,
+          update_user,
+          status
+        FROM
+          grgm_role
+        WHERE
+          id = #{id}
+    </select>
+
+    <delete id="deleteRelateAuthority" parameterType ="RolePojo">
+        DELETE
+        FROM
+        grgm_role_authority
+        WHERE
+        role_id = #{id}
+    </delete>
+
+    <delete id="deleteRelateUser" parameterType ="RolePojo">
+        DELETE
+        FROM
+        grgm_user_role
+        WHERE
+        role_id = #{id}
+    </delete>
+
+    <delete id="deleteRole" parameterType ="RolePojo">
+        DELETE
+        FROM
+        grgm_role
+        WHERE
+        id = #{id}
+    </delete>
+
+    <insert id = "insertRoleAuthority">
+        INSERT INTO grgm_role_authority (
+                role_id,
+                authority_id
+                )
+                VALUES
+                (
+                #{role_id},
+                #{authority_id}
+                )
+    </insert>
+
+    <insert id = "addRole" parameterType ="RolePojo">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO grgm_role (
+                role_name,
+                create_time,
+                update_time,
+                create_user,
+                update_user,
+                status
+                )
+                VALUES
+                (
+                #{roleName},
+                #{createTime},
+                #{updateTime},
+                #{createUser},
+                #{updateUser},
+                #{status}
+                )
+    </insert>
+
+    <update id="editRole" parameterType="RolePojo">
+        update
+        grgm_role
+        set
+        role_name = #{roleName},
+        update_time = #{updateTime},
+        update_user = #{updateUser},
+        status = #{status}
+        where
+        id = #{id}
+    </update>
+
+    <select id="checkIsExistRole" resultType="java.lang.Integer" parameterType="RolePojo">
+        SELECT
+        COUNT(id)
+        FROM
+        grgm_role
+        WHERE
+        role_name = #{roleName}
+        <!--AND status = 0-->
+        <if test="null != id and 0 != id">
+            AND id &lt;&gt; #{id}
+        </if>
+    </select>
+
+    <select id="checkIsUserRelate" resultType="java.lang.Integer" parameterType="RolePojo">
+        SELECT
+        COUNT(role_id)
+        FROM
+        grgm_user_role
+        WHERE
+        role_id = #{id}
+    </select>
+
+</mapper>

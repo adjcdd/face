@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel="stylesheet" href="resources/common/css/common.css"/>
+        <link rel="stylesheet" href="resources/common/css/index.css"/>
+        <link rel="stylesheet" href="resources/common/css/jquery.mCustomScrollbar.css"/>
+        <link rel="stylesheet" href="resources/common/css/jquery.layer.css">
+        <script type="text/javascript" src="resources/common/js/jquery/jquery-1.8.3.min.js"></script>
+        <script src="resources/common/js/jquery/jquery.mousewheel.min.js"></script>
+        <script src="resources/common/js/jquery/jquery.mCustomScrollbar.min.js"></script>
+        <script type="text/javascript" src="resources/common/js/initialize.js"></script>
+        <script type="text/javascript" src="resources/common/js/dataDictionary.js"></script>
+        <script type="text/javascript" src="resources/common/js/common.js"></script>
+        <script type="text/javascript" src="resources/common/js/dataLink.js"></script>
+        <script type="text/javascript" src="resources/common/js/pagination/pagination.js"></script>
+        <script type="text/javascript" src="resources/common/js/utils/utils.js"></script>
+        <script src="resources/common/js/layer/jquery.layer.js"></script>
+        <script src="resources/common/js/validate/checkInputJs.js"></script>
+        <script type="text/javascript" src="resources/template/systemManagement/user/js/systemUser.js"></script>
+        <script type="text/javascript" src="resources/template/systemManagement/user/js/systemUserTemplate.js"></script>
+    </head>
+    <body>
+        <div id="operation" class="removeFloatEffect">
+             <div class="operation_left">
+                 <a id="add" class="commonButton"><span>新增</span></a>
+                 <a id="edit" class="commonButton"><span>编辑</span></a>
+                 <a id="del" class="commonButton"><span>删除</span></a>
+                 <a id="assign" class="commonButton"><span>分配角色</span></a>
+                 <a id="resetPwd" class="commonButton"><span>重置密码</span></a>
+                 <a id="refresh" class="commonButton"><span>刷新</span></a>
+             </div>
+            <div class="search rt">
+                <span>用户账号：</span><input type="text" id="search_username" query-value="" maxlength="20"/>
+                <span>用户名称：</span><input type="text" id="search_name" query-value="" maxlength="20"/>
+                <a id="search" class="commonButton"><span>查询</span></a>
+                <a id="reset" class="commonButton"><span>重置</span></a>
+            </div>
+        </div>
+        <!-- 页面主体 -->
+        <div class="content_main">
+            <!-- 表头 -->
+            <table cellpadding="0" cellspacing="1">
+                <!-- 列数及宽度设置 -->
+                <colgroup>
+                    <col width="4%">
+                    <col width="6%">
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="20%">
+                </colgroup>
+                <!-- 列名设置 -->
+                <thead>
+                    <tr>
+                        <th width="4%"><input type="checkbox" class="checkAll"></th>
+                        <th width="6%">序号</th>
+                        <th width="15%">用户名称</th>
+                        <th width="15%">用户账号</th>
+                        <th width="15%">手机号码</th>
+                        <th width="15%">Email</th>
+                        <th width="10%">状态</th>
+                        <th width="20%">角色</th>
+                    </tr>
+                </thead>
+            </table>
+            <!-- 表体 -->
+            <div class="table_body tableContent">
+                <!-- 列数及宽度设置 -->
+                <table id="systemUsersTable" cellpadding="0" cellspacing="1">
+                    <colgroup>
+                        <col width="4%">
+	                    <col width="6%">
+	                    <col width="15%">
+	                    <col width="15%">
+	                    <col width="15%">
+	                    <col width="15%">
+	                    <col width="10%">
+	                    <col width="20%">
+                    </colgroup>
+                    <!-- 数据 -->
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 页码 -->
+            <div class="navigation">
+                <div class="navigation_left">
+                    共<label id="totalNum">0</label>条数据, 第<span id="currentPage">1</span>页/共[<label id="totalPage">0</label>]页<input id="pageSize" style="display:none">
+                </div>
+                <div class="navigation_right">
+                            <input type="button" value="首页" id="first" />
+                            <input type="button" value="上一页" id="previous" />
+                            <input type="button" value="下一页" id="next" />
+                            <input type="button" value="尾页" id="last" />
+                     转到
+                    <input type="text" id="jumpNo" class="turn">
+                     页
+                    <input type="button" id="jumpPageButton" value="跳转" />
+                </div> 
+            </div>
+        </div>
+
+        <!-- 新增页面 -->
+        <div id="addPage" class="hiddenClass">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h4 class="movePart">新增用户</h4>
+                    <ul id="addArea">
+                        <li>
+                            <span><b>*</b>用户账号：</span><input id="username1" type="text" dataType="UnNumberLine" msg="请输入用户账号，可以是数字、英文、下划线或者其组合" maxlength="20"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                        <li>
+                            <span><b>*</b>用户名称：</span><input id="name" type="text" dataType="UnSpecial" msg="请输入除特殊字符之外的用户名称" maxlength="10"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                        <li>
+                            <span><b>*</b>手机号码：</span><input id="telphone" type="text" dataType="Phone" msg="请输入11位数字类型手机号码" maxlength="11"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                        <li>
+                            <span><b>*</b>E&nbsp;&nbsp;m&nbsp;a&nbsp;i&nbsp;l：</span><input id="email" type="text" dataType="Email" msg="请输入正确格式的邮箱地址" maxlength="30"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                        <li>
+                            <span><b>*</b>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</span><select id="status" dataType="Require" msg="请选择状态">
+                                                </select>
+                        </li>
+                    </ul>
+                    <p class="serviceButton"><input type="button" id="model_add" value="添加"><input type="button" class="cancel" value="取消"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 修改页面 -->
+        <div id="editPage" class="hiddenClass">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h4 class="movePart">修改用户信息</h4>
+                    <ul id="editArea">
+                        <li class="hiddenClass">
+                            <span>主键：</span><input id="configId_modify" type="text">
+                        </li>
+                        <li>
+                            <span><b>*</b>用户账号：</span><input id="update_username" type="text"  disabled/>
+                        </li>
+                        <li>
+                            <span><b>*</b>用户名称：</span><input id="update_name" type="text" disabled/>
+                        </li>
+                        <li>
+                            <span><b>*</b>手机号码：</span><input id="update_telphone" type="text" dataType="Phone" msg="请输入11位数字类型手机号码" maxlength="11"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                        <li>
+                            <span><b>*</b>E&nbsp;&nbsp;m&nbsp;a&nbsp;i&nbsp;l：</span><input id="update_email" type="text" dataType="Email" msg="请输入正确格式的邮箱地址" maxlength="30"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                        <li>
+                            <span><b>*</b>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</span><select id="update_status" dataType="Require" msg="请选择状态">
+                                                </select>
+                        </li>
+                    </ul>
+                    <p class="serviceButton"><input type="button" id="model_modify" value="修改"><input type="button" class="cancel" value="取消"></p>
+                </div>
+            </div>
+        </div>
+
+            <!-- 修改密码 -->
+            <div id="resetPwdPage" class="hiddenClass">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <h4 class="movePart">修改用户信息</h4>
+                        <ul id="resetPwdArea">
+                            <li class="hiddenClass">
+                                <span>主键：</span><input id="resetPwdId" type="text">
+                            </li>
+                            <li>
+                                <span><b>*</b>新密码：</span><input id="newpassword1" type="text" dataType="Password" msg="请输入新密码" minlength="6" maxlength="30"  onblur="$(this).val($.trim(this.value))"/>
+                            </li>
+                            <li>
+                                <span><b>*</b>确认密码：</span><input id="newPassword2" type="text" dataType="Password" msg="请输入确认密码" minlength="6" maxlength="30"  onblur="$(this).val($.trim(this.value))"/>
+                            </li>
+                        </ul>
+                        <p class="serviceButton"><input type="button" id="pwd_modify" value="确定"><input type="button" class="cancel" value="取消"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设置角色 -->
+            <div id="assignRolesPage" class="hiddenClass">
+                <div class="modal-dialog clientDialog">
+                    <div class="modal-content">
+                        <h4 class="movePart">用户分配角色</h4>
+                        <div id="assignRolesArea" class="removeFloatEffect">
+                            <div class="hiddenClass">
+                                <input type="text" id="allSelectIds"/>
+                            </div>
+                            <div class="lf selectDiv">
+                                <p>未拥有角色</p>
+                                <!--<select id="rolePojoReleaseList" multiple></select>-->
+                                <div class="content" style="height:175px;margin:0 5px">
+                                <ul id="rolePojoReleaseList"></ul>
+                                </div>
+                            </div>
+                            <div class="lf removeBtn" style="width:60px;text-align: center;height: 78px;vertical-align:top;padding-top:75px;">
+                                <!--<button id="allRight">&gt;&gt;</button>-->
+                                <button id="right" style="margin-bottom:10px">&gt;添加</button>
+                                <button id="left">&lt;移除</button>
+                                <!--<button id="allLeft">&lt;&lt;</button>-->
+                            </div>
+                            <div class="lf selectDiv">
+                                <p>已拥有角色</p>
+                                <div class="content" style="height:175px;margin:0 5px">
+                                <ul id="rolePojoSelectList"></ul>
+                                </div>
+                                <!--<select id="rolePojoSelectList" multiple></select>-->
+                            </div>
+                        </div>
+                        <p class="serviceButton"><input type="button" id="assignRoles_modify" value="确定"><input type="button" class="cancel" value="取消"></p>
+                    </div>
+                </div>
+            </div>
+            <!--删除和重置用的id-->
+            <div class="hiddenClass">
+                <input type="text" id="deleteId">
+            </div>
+        <div class="promptInfor hiddenClass"></div>
+        </div>
+    </body>
+</html>

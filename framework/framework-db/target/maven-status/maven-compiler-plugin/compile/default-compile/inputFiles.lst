@@ -1,0 +1,5 @@
+G:\framework\framework-db\src\main\java\com\grgbanking\framework\db\mapper\BaseMapper.java
+G:\framework\framework-db\src\main\java\com\grgbanking\framework\db\mapper\LogBaseMapper.java
+G:\framework\framework-db\src\main\java\com\grgbanking\framework\db\config\MyBatisSessionFactoryConfig.java
+G:\framework\framework-db\src\main\java\com\grgbanking\framework\db\config\MyBatisDataSourceConfig.java
+G:\framework\framework-db\src\main\java\com\grgbanking\framework\db\config\MyBatisMapperScannerConfig.java

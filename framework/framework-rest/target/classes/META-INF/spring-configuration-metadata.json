@@ -1,0 +1,37 @@
+{
+  "groups": [{
+    "name": "custom.tomcat.https",
+    "type": "com.grgbanking.framework.rest.config.WebConfig$TomcatSslConnectorProperties",
+    "sourceType": "com.grgbanking.framework.rest.config.WebConfig$TomcatSslConnectorProperties"
+  }],
+  "properties": [
+    {
+      "name": "custom.tomcat.https.keystore-password",
+      "type": "java.lang.String",
+      "sourceType": "com.grgbanking.framework.rest.config.WebConfig$TomcatSslConnectorProperties"
+    },
+    {
+      "name": "custom.tomcat.https.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.grgbanking.framework.rest.config.WebConfig$TomcatSslConnectorProperties"
+    },
+    {
+      "name": "custom.tomcat.https.scheme",
+      "type": "java.lang.String",
+      "sourceType": "com.grgbanking.framework.rest.config.WebConfig$TomcatSslConnectorProperties",
+      "defaultValue": "https"
+    },
+    {
+      "name": "custom.tomcat.https.secure",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.grgbanking.framework.rest.config.WebConfig$TomcatSslConnectorProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "custom.tomcat.https.ssl",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.grgbanking.framework.rest.config.WebConfig$TomcatSslConnectorProperties",
+      "defaultValue": true
+    }
+  ]
+}

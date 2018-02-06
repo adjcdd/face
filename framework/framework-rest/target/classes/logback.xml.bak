@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
+
+	<contextName>biometrics-rest</contextName>
+
+	<property name="LOG_HOME" value="/biometrics-data/logs/biometrics-rest" />
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- Log message format -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5level --- [%thread] %logger{36} : %msg%n</pattern>
+		</encoder>
+		<!-- deny all events with a level below DEBUG, that is TRACE  -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+	</appender>
+
+	<appender name="file" class="ch.qos.logback.core.FileAppender">
+		<file>${LOG_HOME}/biometrics-rest.log</file>
+		<append>true</append>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5level --- [%thread] %logger{36} : %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="infoDailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/biometrics-rest-info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${LOG_HOME}/biometrics-rest-%d{yyyyMMdd}.log</fileNamePattern>
+			<!-- 保留30天的日志 -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5level --- [%thread] %logger{36} : %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<loger name="com.grgbanking.biometrics.rest" level="INFO">
+		<appender-ref ref="file" />
+		<appender-ref ref="console" />
+		<appender-ref ref="infoDailyRollingFile" />
+	</loger>
+
+	<!-- the root level of logging -->
+	<root level="INFO">
+		<appender-ref ref="file" />
+		<appender-ref ref="console" />
+		<appender-ref ref="infoDailyRollingFile" />
+	</root>
+
+</configuration>

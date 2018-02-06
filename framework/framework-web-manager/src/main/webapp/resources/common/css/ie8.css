@@ -1,0 +1,18 @@
+.logo{
+    height:62px;
+}
+.infor>li+li+li{
+    height:62px;
+}
+.remember{
+    height:26px;
+}
+#header{
+    height:48px;
+}
+#content{
+    height:500px;
+}
+.nav_ul{
+    height:33px;
+}

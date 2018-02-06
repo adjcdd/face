@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.framework.manager.mapper.MonitoringEmployeeMapper">
+
+    <resultMap id="monitoringEmployeeMap" type="monitoringEmployeePojo">
+        <id property="id"                   column="id"/>
+        <result property="name"            column="name"/>
+        <result property="dept"            column="dept"/>
+        <result property="ctfNo"            column="ctfNo"/>
+        <result property="start_time"             column="start_time"/>
+        <result property="end_time"     column="end_time"/>
+        <result property="daily_time"       column="daily_time"/>
+        <result property="daily_result"           column="daily_result"/>
+        <result property="later_times"           column="later_times"/>
+        <result property="early_times"           column="early_times"/>
+        <result property="normal_times"            column="normal_times"/>
+        <result property="attendance_days"            column="attendance_days"/>
+        <result property="attendanced_days"            column="attendanced_days"/>
+        <result property="total_latertime"            column="total_latertime"/>
+        <result property="total_earlytime"            column="total_earlytime"/>
+        <result property="no_check_in"            column="no_check_in"/>
+        <result property="no_check_out"            column="no_check_out"/>
+        <collection property="employeeDailyPojoList" ofType="EmployeeDailyPojo">
+        <id column="id" property="id"/>
+        <result property="name" column="name"/>
+        <result property="uid" column="uid"/>
+        <result property="check_in_time"   column="check_in_time"/>
+        <result property="check_out_time"  column="check_out_time"/>
+        <result property="flag"              column="flag"/>
+        <result property="dept"             column="dept"/>
+        <result property="later"             column="later"/>
+        </collection>
+        <collection property="employeePojoList" ofType="EmployeePojo">
+            <id column="id" property="id"/>
+            <result property="uid" column="uid"/>
+            <result property="name" column="name"/>
+            <result property="sex"   column="sex"/>
+            <result property="ctfNo"  column="ctfNo"/>
+            <result property="createTime"     column="createTime"/>
+            <result property="telphone"       column="telphone"/>
+            <result property="ctfNo"           column="ctfNo"/>
+            <result property="email"           column="email"/>
+            <result property="image"           column="image"/>
+            <result property="dept"            column="dept"/>
+        </collection>
+    </resultMap>
+
+    <select id="getList" resultMap="monitoringEmployeeMap">
+        select name,start_time,end_time,daily_time
+        ,sum(case when later_times  &lt;&gt;0 then 1 else 0 end) as later_times
+        ,sum(case when early_times &lt;&gt;0 then 1 else 0 end) as early_times
+        ,sum(case when normal_times &lt;&gt;0 then 1 else 0 end ) as normal_times
+        ,sum(case when attendance_days &lt;&gt;0 then 1 else 0 end) as attendance_days
+        ,sum(case when attendanced_days &lt;&gt;0 then 1 else 0 end) as attendanced_days
+        ,IFNULL(round(sum(total_latertime),2),0) as total_latertime
+        ,IFNULL(round(sum(total_earlytime),2),0) as total_earlytime
+        ,sum(case when no_check_in &lt;&gt;0 then 1 else 0 end) as no_check_in
+        ,sum(case when no_check_out &lt;&gt;0 then 1 else 0 end) as no_check_out
+        from grg_monitoring_employee_report
+        where 1=1
+        <if test="null!=name and '' != name">
+            AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="null!=ctfNo and '' != ctfNo">
+            AND ctfNo LIKE CONCAT('%',#{ctfNo},'%')
+        </if>
+        <if test="null!=start_time and null !=end_time">
+            AND daily_time &gt;= #{start_time}
+            and daily_time &lt;= #{end_time}
+        </if>
+        group by name
+        LIMIT #{currentCount},#{pageSize}
+    </select>
+   <!-- /* ,sum(case when total_latertime is null then 0 else total_latertime end ) as total_latertime
+    ,sum(case when total_earlytime is null then 0 else total_earlytime end) as total_earlytime*/-->
+    <select id="exportList" resultMap="monitoringEmployeeMap">
+        select name,start_time,end_time,daily_time
+        ,sum(case when later_times  &lt;&gt;0 then 1 else 0 end) as later_times
+        ,sum(case when early_times &lt;&gt;0 then 1 else 0 end) as early_times
+        ,sum(case when normal_times &lt;&gt;0 then 1 else 0 end ) as normal_times
+        ,sum(case when attendance_days &lt;&gt;0 then 1 else 0 end) as attendance_days
+        ,sum(case when attendanced_days &lt;&gt;0 then 1 else 0 end) as attendanced_days
+        ,IFNULL(round(sum(total_latertime),2),0) as total_latertime
+        ,IFNULL(round(sum(total_earlytime),2),0) as total_earlytime
+        ,sum(case when no_check_in &lt;&gt;0 then 1 else 0 end) as no_check_in
+        ,sum(case when no_check_out &lt;&gt;0 then 1 else 0 end) as no_check_out
+        from grg_monitoring_employee_report
+        where 1=1
+        <if test="null!=name and '' != name">
+            AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="null!=ctfNo and '' != ctfNo">
+            AND ctfNo LIKE CONCAT('%',#{ctfNo},'%')
+        </if>
+        <if test="null!=start_time and null !=end_time">
+            AND daily_time &gt;= #{start_time}
+            and daily_time &lt;= #{end_time}
+        </if>
+        group by name
+    </select>
+
+    <sql id="monitoringEmployeeListCondition">
+        <if test="null!=name and '' != name">
+            AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="null!=ctfNo and '' != ctfNo">
+            AND ctfNo LIKE CONCAT('%',#{ctfNo},'%')
+        </if>
+        <if test="null!=start_time and null !=end_time">
+            AND check_in_time &gt;= #{start_time}
+            and check_in_time &lt;= #{end_time}
+        </if>
+    </sql>
+    <!--<select id="getCheckTime" resultMap="monitoringEmployeeMap">
+        select gd.name,gd.check_in_time,gd.check_out_time,gd.dept,
+        sum(case when later &gt;&lt;'否' then 1 else 0 end) as gr.later_times,
+         sum(case when later_time is null then 0 else later_time end) as gr.total_latertime,
+        FROM
+        grg_employee_daily gd
+        LEFT JOIN
+        grg_monitoring_employee_report gr
+        ON gr.name=gd.name
+
+        where 1=1
+        <if test="null!=name and '' != name">
+            AND gd.name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="null!=ctfNo and '' != ctfNo">
+            AND gd.ctfNo LIKE CONCAT('%',#{ctfNo},'%')
+        </if>
+        <if test="start_time!=null">
+           and DATE_FORMAT(gd.check_in_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{start_time}, '%Y-%m-%d')
+        </if>
+        <if test="end_time!=null">
+           and DATE_FORMAT(gd.check_in_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{end_time}, '%Y-%m-%d')
+        </if>
+        GROUP  BY gd.name
+        ORDER BY
+        id desc
+        LIMIT #{currentCount},#{pageSize}
+    </select>-->
+<!--    &#45;&#45;       and  gd.name='棉' and TO_DAYS(gd.check_in_time) BETWEEN TO_DAYS('2018-01-25')and TO_DAYS(now())-->
+    <select id="getMonitoringEmployeeCount" resultType="java.lang.Long">
+        SELECT
+        COUNT(distinct name)
+        FROM
+        grg_monitoring_employee_report
+        where 1=1
+        <if test="null!=name and '' != name">
+            AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="null!=ctfNo and '' != ctfNo">
+            AND ctfNo LIKE CONCAT('%',#{ctfNo},'%')
+        </if>
+        <if test="null!=start_time and null !=end_time">
+            AND daily_time &gt;= #{start_time}
+            and daily_time &lt;= #{end_time}
+        </if>
+
+    </select>
+
+    <insert id = "addMonitoringEmployee" parameterType ="monitoringEmployeePojo">
+    INSERT INTO grg_monitoring_employee_report (
+        id,
+        name,
+        dept,
+        ctfNo,
+        start_time,
+        end_time,
+        daily_time,
+        daily_result,
+        later_times,
+        early_times,
+        normal_times,
+        attendance_days,
+        attendanced_days,
+        total_latertime,
+        total_earlytime,
+        no_check_in,
+        no_check_out
+    )
+    VALUES
+    (
+        #{id},
+        #{name},
+        #{dept},
+        #{ctfNo},
+        #{start_time},
+        #{end_time},
+        #{daily_time},
+        #{daily_result},
+        #{later_times},
+        #{early_times},
+        #{normal_times},
+        #{attendance_days},
+        #{attendanced_days},
+        #{total_latertime},
+        #{total_earlytime},
+        #{no_check_in},
+        #{no_check_out}
+    )
+    </insert>
+</mapper>

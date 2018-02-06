@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grgbanking.framework.manager.mapper.EmployeeDailyRuleMapper">
+
+    <resultMap id="employeeDailyRuleMap" type="employeeDailyRulePojo">
+        <id property="id"                    column="id"/>
+        <result property="title"            column="title"/>
+        <result property="check_in_time"   column="check_in_time"/>
+        <result property="check_out_time"  column="check_out_time"/>
+        <result property="dept"             column="dept"/>
+    </resultMap>
+
+    <insert id = "addEmployeeDailyRulePojo" parameterType ="employeeDailyRulePojo">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO grg_employee_daily_rule (
+        id,
+        title,
+        check_in_time,
+        check_out_time,
+        dept
+        )
+        VALUES
+        (
+        #{id},
+        #{title},
+        #{check_in_time},
+        #{check_out_time},
+        #{dept}
+        )
+    </insert>
+    <select id="getEmployeeDailyRuleList" resultMap="employeeDailyRuleMap">
+      SELECT
+        id,title,dept,check_in_time,check_out_time
+      FROM  grg_employee_daily_rule
+      WHERE 1=1
+        <include refid="employeeDailyRuleListCondition"/>
+      ORDER BY
+        id desc
+        LIMIT #{currentCount},#{pageSize}
+    </select>
+    <select id="getEmployeeDailyRuleCount" resultType="java.lang.Long">
+        SELECT
+        COUNT(ID)
+        FROM
+        grg_employee_daily_rule
+        WHERE
+        1=1
+        <include refid="employeeDailyRuleListCondition"/>
+    </select>
+    <select id="getEmployeeDailyRuleInfo" resultMap="employeeDailyRuleMap">
+        SELECT
+        id,title,check_in_time,check_out_time,dept
+        FROM
+        grg_employee_daily_rule
+        WHERE
+        id=#{id}
+    </select>
+    <select id="getEmployeeDailyRuleByDept" resultMap="employeeDailyRuleMap">
+        SELECT
+        id,title,check_in_time,check_out_time,dept
+        FROM
+        grg_employee_daily_rule
+        WHERE
+        dept=#{dept}
+    </select>
+    <select id="exportList" resultMap="employeeDailyRuleMap">
+        SELECT
+        id,title,dept,check_in_time,check_out_time
+        FROM  grg_employee_daily_rule
+        WHERE 1=1
+        <include refid="employeeDailyRuleListCondition"/>
+        ORDER BY
+        id desc
+    </select>
+    <sql id="employeeDailyRuleListCondition">
+        <if test="null!=title and '' != title">
+            AND title LIKE CONCAT('%',#{title},'%')
+        </if>
+        <if test="null!=check_in_time and '' != check_in_time">
+            AND check_in_time = #{check_in_time}
+        </if>
+        <if test="null!=check_out_time and '' != check_out_time">
+            AND check_out_time=#{check_out_time}
+        </if>
+        <if test="null!=dept and '' != dept">
+            AND dept LIKE CONCAT('%',#{dept},'%')
+        </if>
+    </sql>
+    <delete id="deleteEmployeeDailyRulePojo" >
+        DELETE
+        FROM
+        grg_employee_daily_rule
+        WHERE
+        id = #{id}
+    </delete>
+    <update id="updateEmployeeDailyRulePojo" parameterType="employeeDailyRulePojo">
+      UPDATE grg_employee_daily_rule
+        <trim prefix="set" suffixOverrides=",">
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="check_in_time!=null">
+                check_in_time = #{check_in_time},
+            </if>
+            <if test="check_out_time!=null">
+                check_out_time = #{check_out_time},
+            </if>
+            <if test="dept!=null">
+                dept = #{dept},
+            </if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+</mapper>

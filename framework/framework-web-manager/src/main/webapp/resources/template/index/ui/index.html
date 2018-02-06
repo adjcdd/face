@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta http-equiv=“X-UA-Compatible” content=“IE=8″>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title></title>
+        <link rel="shortcut icon" href="resources/common/image/favicon.ico" mce_href="resources/common/image/favicon.ico" type="image/x-icon">
+        <!--[if IE 8 ]>
+        <link rel="stylesheet" type="text/css" media="all" href="resources/common/css/ie8.css" />
+        <![endif]-->
+        <link rel="stylesheet" href="resources/common/css/common.css"/>
+        <link rel="stylesheet" href="resources/common/css/index.css"/>
+        <link rel="stylesheet" href="resources/common/css/jquery.mCustomScrollbar.css"/>
+        <link rel="stylesheet" href="resources/common/css/jquery.layer.css">
+        <link type="text/css" rel="stylesheet" href="resources/common/js/jedate/skin/jedate.css">
+        <script src="resources/common/js/jquery/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="resources/common/js/jedate/jquery.jedate.js"></script>
+        <script src="resources/common/js/jquery/jquery.mousewheel.min.js"></script>
+        <script src="resources/common/js/jquery/jquery.mCustomScrollbar.min.js"></script>
+        <script type="text/javascript" src="resources/common/js/dataLink.js"></script>
+        <script type="text/javascript" src="resources/common/js/global.js"></script>
+        <script type="text/javascript" src="resources/common/js/common.js"></script>
+        <script type="text/javascript" src="resources/common/js/dataDictionary.js"></script>
+        <script type="text/javascript" src="resources/common/js/ocx/ocx.js"></script>
+        <script type="text/javascript" src="resources/common/js/voice/voice.js"></script>
+        <script type="text/javascript" src="resources/common/js/log/log4js.js"></script>
+        <script type="text/javascript" src="resources/common/js/utils/utils.js"></script>
+        <script type="text/javascript" src="resources/common/js/validate/validate.js"></script>
+        <script type="text/javascript" src="resources/common/js/pagination/pagination.js"></script>
+        <script src="resources/common/js/layer/jquery.layer.js"></script>
+        <script src="resources/common/js/validate/checkInputJs.js"></script>
+        <script type="text/javascript" src="resources/common/js/fileUpload/ajaxfileupload.js"></script>
+        <script src="resources/template/index/js/index.js"></script>
+        <script src="resources/template/index/js/indexTemplate.js"></script>
+        <style>
+            /*时间选择框*/
+            #check_in_time_add,#check_out_time_add,#check_in_time_modify,#check_out_time_modify{width:100px; height:24px; border:1px #A5D2EC solid;}
+            .wicon{background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAQCAYAAADj5tSrAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNi8xNS8xNGnF/oAAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAAoElEQVQ4jWPceOnNfwYqAz9dYRQ+E7UtwAaGjyUsDAyYYUgJ2HT5LXZLcEmSCnA6duOlN///////H0bDALl8dPH/////Z8FuNW6Qtvw2nL3lyjsGBgYGhlmRqnj1kGwJuqHIlhJlCXq8EOITEsdqCXLEbbr8FisfFkTo+vBZRFZwERNEFFkCiw90nxJtCalxQmzegltCzVyP1RJq5HZ8AABuNZr0628DMwAAAABJRU5ErkJggg=="); background-repeat:no-repeat; background-position:right center;}
+        </style>
+    </head>
+    <body>
+        <!--页头-->
+        <div id="header" class="removeFloatEffect">
+            <div class="lf header_left">
+                <img src="resources/common/image/LOGO.png" />
+                <h1>生物特征统一认证平台</h1>
+            </div>
+            <div class="lf header_right">
+                <div id="nav" class="lf">
+                    <ul class="nav_ul removeFloatEffect"></ul>
+                </div>
+                <div class= "header_ul rt removeFloatEffect">
+                    <ul>
+                        <li id="passwordModify">
+                            <em></em><a>修改密码</a>
+                        </li>
+                        <li></li>
+                        <li id="exit">
+                            <em></em><a>退出</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="login rt">
+                    <p>Hi，<label id="userName"></label>&nbsp;欢迎使用</p>
+                </div>
+            </div>
+        </div>
+        <!--页面主体-->
+        <div id="content" class="removeFloatEffect">
+            <div class="con_left lf hiddenClass">
+                <div class="con_left_top"><img width="20px" height="15px" src="resources/common/image/hide.png" /></div>
+                <div class="outer-container">
+                        <div class="inner-container">
+                            <div class="contentSubMenu">
+                                <ul class="subMenu"></ul>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="con_right lf">
+                <img id="openAndClose" title="展开" src="resources/common/image/triangle.png" width="9px" height="44px">
+                <div class="topTags removeFloatEffect">
+                        <ul class="lf removeFloatEffect"></ul>
+                        <img class="rt closeAllTags hiddenClass" src="resources/common/image/tagHover.png">
+                    </div>
+                <div class="list">
+                    <iframe id="indexPage" scrolling='no' height='100%' width='100%' marginwidth='0' marginheight='0' frameborder='0' src='resources/common/ui/indexPage.html'></iframe>
+                    <iframe id="noSubMenu" class="hiddenClass" scrolling='no' height='100%' width='100%' marginwidth='0' marginheight='0' frameborder='0' src='resources/common/ui/noSubMenu.html'></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!---页尾-->
+        <div id="footer">
+            <p>版权所有&nbsp;&copy;&nbsp;2017-2020&nbsp;广电运通</p>
+        </div>
+        
+        <!--公共按钮对话框-->
+        <div class="modalDialog"></div>
+        <!--新增、编辑、删除、参数配置-->
+        <div id="buttonPage" class="dragDialog"></div>
+        <!-- div详细页面 -->
+        <div id="divPage" class="dragDialog">
+            <div class='modal-dialog'>
+                <div class='modal-content'></div>
+            </div>
+        </div>
+        <!--请求服务返回消息-->
+        <div id="returnBox" class="dragDialog">
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <p class="infoClose movePart"><img src="resources/common/image/close.png" width="15px" height="15px" class="rt cancelReturnBox"></p>
+                    <p class="infoBox"><img src="resources/common/image/success.png"><span id="resultMsg"></span></p >
+                </div>
+            </div>
+        </div>
+        <!--关闭页签-->
+        <div id="closeTag" class="dragDialog">
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <p class="infoClose movePart"><img src="resources/common/image/close.png" width="15px" height="15px" class="rt cancelTag"></p>
+                    <p class="confirmInfo"><img src="resources/common/image/questionMark.png">您即将关闭所有页签，确定要继续吗？</p >
+                    <p class="serviceButton"><input type="button" class="closeTag"  value="关闭所有页签"><input type="button" class="cancelTag" value="取消"></p>
+                </div>
+            </div>
+        </div>
+        <!--多余10个页签-->
+        <div id="moreTag" class="dragDialog">
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <p class="infoClose movePart"><img src="resources/common/image/close.png" width="15px" height="15px" class="rt cancelMoreTag"></p>
+                    <p class="infoBox"><img src="resources/common/image/gantanhao.png">页签过多，请关闭无用页签</p >
+                </div>
+            </div>
+        </div>
+        <!--修改密码-->
+        <div id="modifyPassword" class="dragDialog">
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <h4 class="movePart">修改密码</h4>
+                    <ul id="modifyPasswordArea">
+                        <li>
+                            <span><b>*</b>原密码：</span><input id="oldPassword" type="password" dataType="Password" msg="请输入正确的密码格式，可包含数字、字母和下划线(6-20)" maxlength="20"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                        <li>
+                            <span><b>*</b>新密码：</span><input id="newPassword" type="password" dataType="Password" msg="请输入正确的密码格式，可包含数字、字母和下划线(6-20)" maxlength="20"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                        <li>
+                            <span><b>*</b>确认密码：</span><input id="confirmPassword" type="password" dataType="Password" msg="请输入正确的密码格式，可包含数字、字母和下划线(6-20)" maxlength="20"  onblur="$(this).val($(this).val().replace(/\s/g,''))"/>
+                        </li>
+                    </ul>
+                    <p class="serviceButton"><input type="button" id="userPasswordModify" value="修改"><input type="button" class="passwordCancel" value="取消"></p>
+                </div>
+            </div>
+        </div>
+        <!--锁屏层-->
+        <div id="screenLock" class="modal screenLock">
+            <img id="loading" src="resources/common/image/loading.gif">
+        </div>
+    </body>
+</html>

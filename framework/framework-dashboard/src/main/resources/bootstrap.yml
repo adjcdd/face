@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: biometrics-dashboard
+  http:
+    encoding: { charset: UTF-8, enable: true, force: true }
+info:
+  component: biometrics-dashboard
+  contact:
+    email: wyfei5@grgbanking.com
+    phone: 18710105371

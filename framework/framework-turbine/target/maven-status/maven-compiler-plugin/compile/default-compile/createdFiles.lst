@@ -1,0 +1,3 @@
+com\grgbanking\framework\turbine\BiometricsTurbineApplication.class
+com\grgbanking\framework\turbine\config\WebConfig.class
+com\grgbanking\framework\turbine\config\SecurityConfig.class

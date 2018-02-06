@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="
+                http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- AppService接口消息配置 -->
+    <int:channel id="appServiceInputChannel"/>
+    <int:channel id="appServiceInputChannelHello"/>
+    <int:channel id="appServiceInputChannelHelloToSomeBody"/>
+    <int:channel id="appServiceInputChannelHelloToApp"/>
+    <int:gateway id="appServiceGateWay"
+                 service-interface="com.grgbanking.framework.webservice.gateway.AppServiceGateWay"
+                 default-request-channel="appServiceInputChannel">
+        <!-- 无参数方法需要指定payload-expression参数 -->
+        <int:method name="hello" request-channel="appServiceInputChannelHello" payload-expression="#gatewayMethod.name"/>
+        <int:method name="helloToSomeBody" request-channel="appServiceInputChannelHelloToSomeBody"/>
+        <int:method name="helloToApp" request-channel="appServiceInputChannelHelloToApp"/>
+    </int:gateway>
+    <int:service-activator input-channel="appServiceInputChannelHello" ref="appServiceImpl" method="hello"/>
+    <int:service-activator input-channel="appServiceInputChannelHelloToSomeBody" ref="appServiceImpl" method="helloToSomeBody"/>
+    <int:service-activator input-channel="appServiceInputChannelHelloToApp" ref="appServiceImpl" method="helloToApp"/>
+
+</beans>

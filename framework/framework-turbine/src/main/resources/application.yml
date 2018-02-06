@@ -1,0 +1,33 @@
+server:
+  port: 7878
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+turbine:
+  # Eureka中的serviceId列表，表明监控哪些服务
+  appConfig: biometrics-rest
+  aggregator:
+    clusterConfig: default
+  clusterNameExpression: new String("default")
+  instanceUrlSuffix: /grgbanking/framework/hystrix.stream
+
+
+#监控检测配置
+spring:
+  boot:
+    admin:
+      url: http://localhost:8090
+
+management:
+  security:
+    enabled: false

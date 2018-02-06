@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+
+	<!--<mvc:annotation-driven />-->
+	<context:component-scan base-package="com.grgbanking.framework">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+
+	<!-- spring mvc 添加json处理 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+	<bean id="mappingJacksonHttpMessageConverter"
+		  class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	</bean>
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters"><!-- 配置一下对json数据的转换 -->
+			<util:list id="beanList">
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</util:list>
+		</property>
+
+		<property name="cacheSeconds" value="0" />
+		<property name="webBindingInitializer">
+			<bean class="com.grgbanking.framework.manager.framework.MyWebBinding" />
+		</property>
+	</bean>
+
+	<!-- 自定义HandlerMethodExceptionResolver-->
+	<bean id="handlerExceptionResolver"
+		  class="com.grgbanking.framework.manager.framework.AnnotationHandlerMethodExceptionResolver">
+		<property name="defaultErrorView" value="/template/error/500.html" />
+		<property name="messageConverters" ref="mappingJacksonHttpMessageConverter" />
+	</bean>
+
+	<!-- velocity配置 -->
+	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer" >
+		<property name="configLocation" value="classpath:velocity.properties" />
+		<property name="resourceLoaderPath" value="/WEB-INF/template/" />
+	</bean>
+
+	<!--  对模型视图名称的解析，即在模型视图名称添加前后缀
+    InternalResourceViewResolver默认的就是JstlView
+    -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/resources/template/"></property>
+		<property name="suffix" value=".html"></property>
+	</bean>
+
+	<!-- 多部分文件上传 需配置MultipartResolver处理器-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	         <property name="maxUploadSize" value="10485760000" />
+	         <property name="maxInMemorySize" value="4096" />
+	       <property name="defaultEncoding" value="UTF-8"></property>
+	</bean>
+
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="requestContextAttribute" value="request" />
+		<property name="numberToolAttribute" value="number" />
+		<property name="dateToolAttribute" value="date" />
+		<property name="toolboxConfigLocation" value="/WEB-INF/velocityToolBox.xml" />
+	</bean>
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<!-- 设置为true以忽略对Accept Header的支持 -->
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="defaultContentType" value="text/html; charset=UTF-8" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html; charset=UTF-8" />
+				<entry key="json" value="application/json; charset=UTF-8" />
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+				<ref bean="viewResolver" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL -->
+	<mvc:default-servlet-handler />
+
+	<!-- 定义无需Controller的url<->view直接映射 ** -->
+	<!--<mvc:view-controller path="/" view-name="redirect:/resourindex.jsphtml" />-->
+
+	<!-- 将Controller抛出的异常转到特定View, 保持SiteMesh的装饰效果 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">/template/error/500.html</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="messageSource"
+		  class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+	<bean id="velocityEngine"
+		  class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+				<prop key="velocimacro.library"></prop>
+			</props>
+		</property>
+	</bean>
+</beans>

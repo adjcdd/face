@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+    <context:annotation-config />
+    <!-- 由于服务器启动时的加载配置文件的顺序为web.xml、root-context.xml(ApplicationContext.xml)、servlet-context.xml(SpringMVC的配置文件) -->
+    <!-- 由于root-context.xml配置文件中Controller会先进行扫描装配，但是此时service还没有进行事务增强处理，得到的将是原样的Service（没有经过事务加强处理，故而没有事务处理能力） -->
+    <!-- 所以必须在ApplicationContext.xml中不扫描Controller，在servlet-context.xml中扫描Controller同时不扫描Service -->
+    <context:component-scan base-package="com.grgbanking.framework">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+    <!--<aop:aspectj-autoproxy/>-->
+    <!--<bean class="com.grgbanking.biometrics.manager.aop.ServerSecurity"/>-->
+    <!-- 定义易受环境影响的变量 -->
+    <!--调度器-->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <!--触发器列表-->
+                <ref bean="cronTrigger1"/>
+                <ref bean="cronTrigger2"/>
+                <ref bean="cronTrigger3"/>
+            </list>
+        </property>
+        <!--加载配置文件，如果不配置，将会使用quartz默认的配置-->
+        <!--<property name="configLocation" value="classpath:quartz.properties"/>-->
+    </bean>
+    <!--触发器-->
+    <bean id="cronTrigger1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!--指向我们的任务-->
+        <property name="jobDetail" ref="getTJob"/>
+        <!--每天12点30分运行一次-->
+        <property name="cronExpression" value="0 30 17 * * ?"/>
+    </bean>
+    <!--触发器-->
+    <bean id="cronTrigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!--指向我们的任务-->
+        <property name="jobDetail" ref="addMJob"/>
+        <!--每天12点30分运行一次-->
+        <property name="cronExpression" value="0 35 17 * * ?"/>
+    </bean>
+    <bean id="cronTrigger3" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!--指向我们的任务-->
+        <property name="jobDetail" ref="checkTJob"/>
+        <!--每天12点30分运行一次-->
+        <property name="cronExpression" value="0 20 17 * * ?"/>
+    </bean>
+    <!--处理类-->
+    <bean name="addMJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.grgbanking.framework.manager.task.AddMonitoringEmployeeJob"/>
+    </bean>
+    <bean name="getTJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.grgbanking.framework.manager.task.GetLastTimeJob"/>
+    </bean>
+    <bean name="checkTJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.grgbanking.framework.manager.task.CheckTimeJob"/>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations">
+            <list>
+                <!-- 标准配置 -->
+                <value>classpath:/app-web-manager.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maximumPoolSize" value="100"/>
+        <property name="minimumIdle" value="10"/>
+        <property name="autoCommit" value="false"/>
+        <!--<property name="connectionTestQuery" value="select 1"/>-->
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="cachePrepStmts">true</prop>
+                <prop key="prepStmtCacheSize">250</prop>
+                <prop key="prepStmtCacheSqlLimit">2048</prop>
+                <prop key="useServerPrepStmts">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- mybatis文件配置，扫描所有mapper文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath*:mapper/${db.type}/*.xml" />
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- spring与mybatis整合配置，扫描所有dao -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.grgbanking.framework.manager.mapper"
+          p:sqlSessionFactoryBeanName="sqlSessionFactory"
+          p:markerInterface="com.grgbanking.framework.manager.mapper.BaseMapper"/>
+
+    <!-- 对数据源进行事务管理 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="dataSource"/>
+    <!-- 事务注解驱动，标注@Transactional的类和方法将具有事务性 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <aop:aspectj-autoproxy/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/monitoring"/>
+            <mvc:exclude-mapping path="/getLastTime"/>
+            <mvc:exclude-mapping path="/addMonitoringEmployee"/>
+            <mvc:exclude-mapping path="/user/**"/>
+            <mvc:exclude-mapping path="/**/*.jsp"/>
+            <mvc:exclude-mapping path="/**/*.js"/>
+            <mvc:exclude-mapping path="/**/*.css"/>
+            <mvc:exclude-mapping path="/**/login.html"/>
+            <mvc:exclude-mapping path="/**/verifyError.html"/>
+            <mvc:exclude-mapping path="/**/image/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/login"/>
+            <bean class="com.grgbanking.framework.manager.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>
+
+
+
